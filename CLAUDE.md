@@ -8,7 +8,7 @@ Deissy Olarte's personal site, to live at https://turesiliencia.com. The associa
 
 Today it is a single "coming soon" page in Spanish (`src/pages/index.astro`): the lotus emblem, a short line, her email and Instagram, the book with its Amazon links, and a link to the association. Its contact details and Amazon links are the same as the `.org`'s (`src/content/site.ts` and `src/content/book.ts` there): change both sites together. It sets `noindex, nofollow` while it is a placeholder; remove that when the real site goes up.
 
-The domain `turesiliencia.com` does not point here yet.
+It is live at https://deissy-olarte.vercel.app (Vercel project on her account, deployed on every push to `main`). The domain `turesiliencia.com` does not point here yet. The page's own address in its link-preview tags comes from `site` in `astro.config.mjs`, which takes Vercel's `VERCEL_PROJECT_PRODUCTION_URL` at build time: today the `vercel.app` address, `turesiliencia.com` once that domain is attached to the project, with no code change. Local builds fall back to `turesiliencia.com`.
 
 Private context (the brief, her material, the backup of the old site) is not in this repository. It lives with the `.org` project, in `../turesiliencia/CLAUDE.local.md` and `../turesiliencia/refs/turesiliencia-com/`, both gitignored there. Read them before writing content.
 
@@ -20,7 +20,7 @@ npm run build    # static build into dist/
 npm run preview  # serve the build
 ```
 
-Astro 7 wants Node 22.23 or later; Vercel builds with Node 24. No test runner, no linter.
+Astro 7 wants Node 22.23 or later; `.nvmrc` pins 24, as Vercel builds with. No test runner, no linter.
 
 To look at the page without a browser, serve the build (`npx astro preview --port 3458`) and screenshot it with headless Chrome at a desktop and a phone width:
 

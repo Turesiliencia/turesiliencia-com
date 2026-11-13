@@ -1,9 +1,16 @@
 // @ts-check
 import { defineConfig, fontProviders } from "astro/config";
 
+// The address in the link-preview tags. On Vercel, the project's production
+// domain: the vercel.app address today, turesiliencia.com once it is attached.
+const productionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+const site = productionHost
+  ? `https://${productionHost}`
+  : "https://turesiliencia.com";
+
 // https://astro.build/config
 export default defineConfig({
-  site: "https://turesiliencia.com",
+  site,
   // Same typefaces as turesiliencia.org, downloaded at build time and served
   // from the site itself.
   fonts: [
