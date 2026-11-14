@@ -1,7 +1,5 @@
 ---
 import BookSection from "../components/BookSection.astro";
-import HeroArt from "../components/HeroArt.astro";
-import LogoEmblem from "../components/LogoEmblem.astro";
 import PostCard from "../components/PostCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { areas } from "../content/services";
@@ -34,14 +32,6 @@ const jsonLd = {
         <li><a class="button-primary" href="/servicios/">Cómo te acompaño</a></li>
         <li><a class="button-secondary" href="/miblog/">Leer el blog</a></li>
       </ul>
-    </div>
-    <div class="hero-image">
-      <div class="arch">
-        <HeroArt />
-      </div>
-      <div class="badge">
-        <LogoEmblem class="badge-emblem" id="lotus-hero" />
-      </div>
     </div>
   </section>
 
@@ -171,28 +161,59 @@ const jsonLd = {
 <style>
   /* Hero: hers, not the association's. The .org centres its lotus medallion
      over gold capitals; here the text is set to the left, her name in ink and
-     in mixed case, beside a drawn sunrise in an arch with the lotus as a
-     seal. */
+     in mixed case, over a quiet pattern: fine rings spreading like ripples
+     around a lotus on water, off to the right, fading out before the text. */
 
   .hero {
-    display: grid;
-    gap: clamp(3rem, 8vw, 4rem);
-    align-items: center;
-    max-width: 76rem;
-    margin-inline: auto;
-    padding: clamp(3rem, 9vh, 6rem) var(--gutter) clamp(4.5rem, 11vh, 7rem);
-    box-sizing: content-box;
+    position: relative;
+    isolation: isolate;
+    padding: clamp(4rem, 12vh, 8rem) var(--gutter) clamp(5rem, 13vh, 8.5rem);
   }
 
-  @media (min-width: 56rem) {
-    .hero {
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: clamp(3rem, 7vw, 6rem);
+  .hero::before {
+    /* Where the rings spread from, how far they reach, and a second fade
+       that keeps them out from behind the text. */
+    --centre: 82% 45%;
+    --reach: min(34rem, 40vw);
+    --clear: linear-gradient(to right, transparent 38%, #000 68%);
+
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: repeating-radial-gradient(
+      circle at var(--centre),
+      transparent 0 2.75rem,
+      var(--rule-strong) 2.75rem calc(2.75rem + 1px),
+      transparent calc(2.75rem + 1px) 2.875rem
+    );
+    -webkit-mask-image:
+      radial-gradient(circle at var(--centre), #000 0, rgb(0 0 0 / 0.55) 40%, transparent var(--reach)),
+      var(--clear);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      radial-gradient(circle at var(--centre), #000 0, rgb(0 0 0 / 0.55) 40%, transparent var(--reach)),
+      var(--clear);
+    mask-composite: intersect;
+    pointer-events: none;
+  }
+
+  /* On a phone the text takes the width: the rings move to the top right
+     corner and fade out above the paragraph. */
+  @media (max-width: 47.99rem) {
+    .hero::before {
+      --centre: 100% 0%;
+      --reach: 18rem;
+      --clear: linear-gradient(to bottom, #000 0, transparent 15rem);
     }
   }
 
-  .hero-text > *,
-  .hero-image {
+  .hero-text {
+    max-width: 76rem;
+    margin-inline: auto;
+  }
+
+  .hero-text > * {
     animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
 
@@ -200,7 +221,6 @@ const jsonLd = {
   .hero-text > :nth-child(3) { animation-delay: 0.2s; }
   .hero-text > :nth-child(4) { animation-delay: 0.3s; }
   .hero-text > :nth-child(5) { animation-delay: 0.42s; }
-  .hero-image { animation-delay: 0.25s; }
 
   @keyframes rise {
     from {
@@ -252,58 +272,6 @@ const jsonLd = {
     gap: 0.9rem;
     margin-top: 2.5rem;
     list-style: none;
-  }
-
-  /* The drawing (HeroArt) in an arch, a second arch outlined behind it, the
-     lotus in a small round seal on its edge. */
-  .hero-image {
-    position: relative;
-    justify-self: center;
-    width: min(100%, 17rem);
-    margin: 0.9rem 0.9rem 0 0;
-  }
-
-  @media (min-width: 56rem) {
-    .hero-image {
-      width: min(100%, 22rem);
-      justify-self: end;
-    }
-  }
-
-  .hero-image::before {
-    content: "";
-    position: absolute;
-    inset: -0.9rem -0.9rem 0.9rem 0.9rem;
-    border: 1px solid var(--rule-strong);
-    border-radius: 999px 999px 0 0;
-  }
-
-  .arch {
-    position: relative;
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
-    border-radius: 999px 999px 0 0;
-    background: var(--paper-deep);
-    box-shadow: 0 1.5rem 3rem var(--shadow);
-  }
-
-  .badge {
-    position: absolute;
-    bottom: -1.75rem;
-    left: -1.75rem;
-    display: grid;
-    place-items: center;
-    width: clamp(5rem, 9vw, 6rem);
-    aspect-ratio: 1;
-    border: 1px solid var(--rule-strong);
-    border-radius: 50%;
-    background: var(--paper);
-    box-shadow: 0 0.75rem 1.5rem var(--shadow);
-  }
-
-  :global(.badge-emblem) {
-    width: 66%;
-    margin-top: 6%;
   }
 
   /* About */
@@ -473,8 +441,7 @@ const jsonLd = {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-text > *,
-    .hero-image {
+    .hero-text > * {
       animation: none;
     }
 
