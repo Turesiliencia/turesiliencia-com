@@ -27,8 +27,22 @@
 }
 
 html {
+  /* Room for the sticky header when jumping to a section. */
+  scroll-padding-top: 7rem;
   background: var(--navy-950);
   -webkit-text-size-adjust: 100%;
+}
+
+@media (min-width: 48rem) {
+  html {
+    scroll-padding-top: 5.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -65,4 +79,134 @@ svg {
 ::selection {
   background: var(--gold-300);
   color: var(--navy-950);
+}
+
+/* Shared by the pages, as on turesiliencia.org: a section with a rule above
+   it, a gold label, a display title, body text and two kinds of button. */
+
+.section {
+  padding: clamp(4rem, 10vh, 6.5rem) var(--gutter);
+  border-top: 1px solid var(--rule);
+}
+
+.label {
+  font: 600 0.75rem / 1.4 var(--font-sans);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-300);
+}
+
+.title {
+  margin-top: 1rem;
+  font: 600 clamp(2.1rem, 4.4vw, 3.2rem) / 1.08 var(--font-display);
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+  color: var(--cream);
+}
+
+.body-text {
+  max-width: 58ch;
+  margin-top: 1.25rem;
+  line-height: 1.75;
+  text-wrap: pretty;
+  color: var(--mist);
+}
+
+.body-text a {
+  color: var(--cream);
+  border-bottom: 1px solid var(--rule-strong);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.body-text a:hover {
+  color: var(--gold-300);
+  border-color: var(--gold-300);
+}
+
+.button-primary,
+.button-secondary {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem 1.75rem;
+  border: 1px solid var(--gold-300);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.button-primary span,
+.button-secondary span {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+.button-primary {
+  background: var(--gold-300);
+  color: var(--navy-950);
+}
+
+.button-primary:hover {
+  background: #e6cf9c;
+}
+
+.button-secondary {
+  color: var(--gold-300);
+}
+
+.button-secondary span {
+  color: var(--cream);
+}
+
+.button-secondary:hover {
+  background: rgb(215 186 127 / 0.1);
+}
+
+.arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-300);
+}
+
+.arrow-link span {
+  font: 400 1.1rem / 1 system-ui, sans-serif;
+  transition: transform 0.2s ease;
+}
+
+.arrow-link:hover {
+  color: #ecd9ac;
+}
+
+.arrow-link:hover span {
+  transform: translateX(0.25rem);
+}
+
+.arrow-link.back:hover span {
+  transform: translateX(-0.25rem);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow-link span {
+    transition: none;
+  }
 }

@@ -1,0 +1,132 @@
+---
+import LogoEmblem from "./LogoEmblem.astro";
+import { nav, site } from "../content/site";
+---
+
+<footer class="footer">
+  <div class="inner">
+    <div class="about">
+      <a href="/" class="brand">
+        <LogoEmblem class="footer-emblem" id="lotus-footer" />
+        <span>{site.name}</span>
+      </a>
+      <p class="tagline">Duelo migratorio y transiciones vitales</p>
+    </div>
+
+    <nav aria-labelledby="footer-explore" class="column">
+      <h2 id="footer-explore">Explora</h2>
+      <ul>
+        {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="column">
+      <h2>Escríbeme</h2>
+      <ul>
+        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li><a href={site.instagram.url} rel="noopener">Instagram {site.instagram.handle}</a></li>
+      </ul>
+    </div>
+
+    <div class="column">
+      <h2>La asociación</h2>
+      <ul>
+        <li><a href={site.association.url}>{site.association.name}</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="legal">© 2026 {site.name}</p>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--rule);
+    background: var(--navy-900);
+  }
+
+  .inner {
+    display: grid;
+    gap: 2.5rem;
+    max-width: calc(76rem + 2 * var(--gutter));
+    margin-inline: auto;
+    padding: clamp(3rem, 7vh, 4.5rem) var(--gutter) 2.5rem;
+  }
+
+  @media (min-width: 40rem) {
+    .inner {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .about {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 60rem) {
+    .inner {
+      grid-template-columns: 1.7fr 1fr 1.4fr 1fr;
+    }
+
+    .about {
+      grid-column: auto;
+    }
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--cream);
+    font: 600 1.75rem / 1 var(--font-display);
+  }
+
+  :global(.footer-emblem) {
+    width: 3rem;
+  }
+
+  .tagline {
+    margin-top: 1.25rem;
+    font: italic 500 1.35rem / 1.3 var(--font-display);
+    color: var(--cream);
+  }
+
+  .column h2 {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold-300);
+  }
+
+  .column ul {
+    margin-top: 1rem;
+    list-style: none;
+  }
+
+  .column li + li {
+    margin-top: 0.55rem;
+  }
+
+  .column a {
+    font-size: 0.875rem;
+    color: var(--mist);
+    overflow-wrap: break-word;
+    transition: color 0.2s ease;
+  }
+
+  .column a:hover {
+    color: var(--cream);
+  }
+
+  .legal {
+    width: calc(100% - 2 * var(--gutter));
+    max-width: 76rem;
+    margin-inline: auto;
+    padding: 1.5rem 0 2rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--mist);
+  }
+</style>

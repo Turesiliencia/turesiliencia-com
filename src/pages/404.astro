@@ -1,7 +1,40 @@
 ---
-// Old addresses (her posts and pages on the previous site) land here: the same
-// page as the home, served with a 404 status.
-import ComingSoon from "../components/ComingSoon.astro";
+// Unknown addresses, among them the old site's pages that are not on this one
+// (Mi historia, Tarifas, Temarios, Tu videoconferencia).
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../content/site";
 ---
 
-<ComingSoon />
+<BaseLayout title="Página no encontrada">
+  <section class="not-found">
+    <p class="label">Error 404</p>
+    <h1 class="title">Esta página no existe</h1>
+    <p class="body-text">
+      Puede que la dirección haya cambiado con la nueva web. Desde aquí puedes leer mi blog, conocer mi
+      libro o escribirme a <a href={`mailto:${site.email}`}>{site.email}</a>.
+    </p>
+    <ul class="ctas">
+      <li><a class="button-primary" href="/">Ir al inicio</a></li>
+      <li><a class="button-secondary" href="/miblog/">Leer el blog</a></li>
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: clamp(4rem, 14vh, 8rem) var(--gutter);
+    text-align: center;
+  }
+
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.9rem;
+    margin-top: 2.5rem;
+    list-style: none;
+  }
+</style>

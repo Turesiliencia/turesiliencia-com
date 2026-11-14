@@ -1,8 +1,9 @@
 // @ts-check
 import { defineConfig, fontProviders } from "astro/config";
+import sitemap from "@astrojs/sitemap";
 
-// The address in the link-preview tags. On Vercel, the project's production
-// domain: the vercel.app address today, turesiliencia.com once it is attached.
+// The address in canonical links, link-preview tags and the sitemap. On Vercel,
+// the project's shortest production domain: turesiliencia.com.
 const productionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
 const site = productionHost
   ? `https://${productionHost}`
@@ -11,6 +12,9 @@ const site = productionHost
 // https://astro.build/config
 export default defineConfig({
   site,
+  // Posts keep the addresses they had on WordPress, which end in a slash.
+  trailingSlash: "always",
+  integrations: [sitemap()],
   // Same typefaces as turesiliencia.org, downloaded at build time and served
   // from the site itself.
   fonts: [

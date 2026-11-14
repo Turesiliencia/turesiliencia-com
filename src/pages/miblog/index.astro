@@ -1,0 +1,72 @@
+---
+// The blog's list, at the same address as on the old site.
+import PostCard from "../../components/PostCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getPosts } from "../../lib/sanity";
+
+const posts = await getPosts();
+const description =
+  "El blog de Deissy Olarte: duelo migratorio, pérdida, identidad y resiliencia, para quienes atraviesan una transición vital.";
+---
+
+<BaseLayout title="Mi blog" description={description} current="/miblog/">
+  <section class="intro">
+    <p class="label">Mi blog</p>
+    <h1 class="title">Bienvenidos a mi blog</h1>
+    <p class="body-text">
+      Una persona resiliente, además de superar su dolor, entiende que un momento difícil no es
+      permanente. Aquí comparto experiencias que pueden acompañar tu proceso de reconstrucción.
+    </p>
+  </section>
+
+  <section class="list" aria-label="Entradas">
+    <ul class="posts">
+      {
+        posts.map((post) => (
+          <li>
+            <PostCard post={post} headingLevel="h2" />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: clamp(3.5rem, 9vh, 5.5rem) var(--gutter) clamp(3rem, 7vh, 4.5rem);
+    text-align: center;
+  }
+
+  .intro .title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  .list {
+    padding: clamp(3rem, 7vh, 4.5rem) var(--gutter) clamp(4rem, 10vh, 6.5rem);
+    border-top: 1px solid var(--rule);
+  }
+
+  .posts {
+    display: grid;
+    gap: 3.5rem clamp(1.5rem, 3vw, 2.75rem);
+    max-width: 76rem;
+    margin-inline: auto;
+    list-style: none;
+  }
+
+  @media (min-width: 40rem) {
+    .posts {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 68rem) {
+    .posts {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

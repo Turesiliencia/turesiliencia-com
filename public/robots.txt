@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://turesiliencia.com/sitemap-index.xml

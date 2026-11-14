@@ -1,5 +1,347 @@
 ---
-import ComingSoon from "../components/ComingSoon.astro";
+import BookSection from "../components/BookSection.astro";
+import LogoEmblem from "../components/LogoEmblem.astro";
+import PostCard from "../components/PostCard.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../content/site";
+import { getPosts } from "../lib/sanity";
+
+const latest = (await getPosts()).slice(0, 3);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Deissy Olarte",
+  url: Astro.site?.href,
+  email: `mailto:${site.email}`,
+  sameAs: [site.instagram.url, site.association.url],
+};
 ---
 
-<ComingSoon />
+<BaseLayout jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="mark">
+      <LogoEmblem class="hero-emblem" id="lotus-hero" />
+    </div>
+    <p class="eyebrow label">TuResiliencia</p>
+    <h1 class="headline">Deissy Olarte</h1>
+    <p class="subtitle">Duelo migratorio, pérdida y transiciones vitales</p>
+    <p class="lede">
+      Acompaño a personas que atraviesan una pérdida, una migración o un cambio que lo altera todo, para
+      que puedan volver a reconocerse. Aquí comparto lo que escribo y mi libro.
+    </p>
+    <ul class="ctas">
+      <li><a class="button-primary" href="/miblog/">Leer el blog</a></li>
+      <li><a class="button-secondary" href="#libro">Mi libro</a></li>
+    </ul>
+  </section>
+
+  <section id="sobre-mi" class="about section" aria-labelledby="about-title">
+    <div class="about-inner">
+      <div>
+        <p class="label">Sobre mí</p>
+        <h2 id="about-title" class="title">Alguien que te escucha puede marcar la diferencia</h2>
+        <p class="body-text">
+          Soy Deissy Olarte. Quizá, como tú, he vivido momentos muy difíciles, y en ellos también busqué
+          ayuda. No me arrepiento: esa experiencia me llevó a dedicarme a acompañar a otras personas.
+        </p>
+        <p class="body-text">
+          Hoy me centro en el duelo migratorio, la pérdida y las transiciones vitales: esos cambios que nos
+          obligan a preguntarnos quiénes somos y cuál es nuestro lugar. Soy también fundadora de la{" "}
+          <a href={site.association.url}>{site.association.name}</a>.
+        </p>
+      </div>
+      <dl class="pillars">
+        <div>
+          <dt>Formación</dt>
+          <dd>
+            Teóloga, con un máster en Psicología y Gestión Familiar por la Universidad de Valencia y otro en
+            Atención a la Diversidad y Educación Inclusiva.
+          </dd>
+        </div>
+        <div>
+          <dt>Experiencia</dt>
+          <dd>
+            Más de diez años en la docencia universitaria, el coaching y el acompañamiento a personas en
+            duelo.
+          </dd>
+        </div>
+        <div>
+          <dt>Reconocimiento</dt>
+          <dd>Premio «Mujer Resiliente del Año 2025» de la Fundación Con Valores.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  {
+    latest.length > 0 && (
+      <section id="blog" class="blog section" aria-labelledby="blog-title">
+        <div class="section-head">
+          <p class="label">Mi blog</p>
+          <h2 id="blog-title" class="title">Lo último que he escrito</h2>
+        </div>
+        <ul class="posts">
+          {latest.map((post) => (
+            <li>
+              <PostCard post={post} />
+            </li>
+          ))}
+        </ul>
+        <p class="all">
+          <a class="arrow-link" href="/miblog/">
+            Todas las entradas <span aria-hidden="true">→</span>
+          </a>
+        </p>
+      </section>
+    )
+  }
+
+  <BookSection id="libro" />
+
+  <section id="contacto" class="contact section" aria-labelledby="contact-title">
+    <p class="label">Contacto</p>
+    <h2 id="contact-title">Escríbeme</h2>
+    <p class="body-text">
+      Si quieres contarme tu historia, preguntarme por el libro o proponerme una colaboración, puedes
+      escribirme o encontrarme en Instagram.
+    </p>
+    <ul class="actions">
+      <li>
+        <a class="button-primary" href={`mailto:${site.email}`}>
+          Correo
+          <span>{site.email}</span>
+        </a>
+      </li>
+      <li>
+        <a class="button-secondary" href={site.instagram.url} rel="noopener">
+          Instagram
+          <span>{site.instagram.handle}</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero: composed like the book cover, with the lotus in the gold ring. */
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: clamp(3rem, 8vh, 5rem) var(--gutter) clamp(4.5rem, 11vh, 7rem);
+    text-align: center;
+  }
+
+  .hero > * {
+    animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .hero > :nth-child(2) { animation-delay: 0.08s; }
+  .hero > :nth-child(3) { animation-delay: 0.2s; }
+  .hero > :nth-child(4) { animation-delay: 0.3s; }
+  .hero > :nth-child(5) { animation-delay: 0.42s; }
+  .hero > :nth-child(6) { animation-delay: 0.54s; }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(0.75rem);
+    }
+  }
+
+  .mark {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: clamp(8.5rem, 18vw, 11rem);
+    aspect-ratio: 1;
+  }
+
+  .mark::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgb(215 186 127 / 0.6);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(5 13 31 / 0.55), rgb(5 13 31 / 0.15) 70%);
+  }
+
+  :global(.hero-emblem) {
+    position: relative;
+    width: 78%;
+    margin-top: 3%;
+    filter: drop-shadow(0 0.9rem 1.6rem rgb(0 0 0 / 0.45));
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    margin-top: clamp(2.25rem, 5vh, 3.25rem);
+  }
+
+  .eyebrow::before,
+  .eyebrow::after {
+    content: "";
+    width: clamp(2rem, 9vw, 5.5rem);
+    height: 1px;
+    background: var(--rule-strong);
+  }
+
+  .headline {
+    margin-top: 1.4rem;
+    font: 600 clamp(2.6rem, 7vw, 5rem) / 1.04 var(--font-display);
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    color: var(--gold-300);
+  }
+
+  @supports (background-clip: text) {
+    .headline {
+      background: linear-gradient(180deg, #ecd9ac 0%, #d7ba7f 48%, #b9975a 100%);
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  .subtitle {
+    max-width: 44ch;
+    margin-top: 1.25rem;
+    font: italic 500 clamp(1.4rem, 2.5vw, 1.95rem) / 1.28 var(--font-display);
+    text-wrap: balance;
+    color: var(--cream);
+  }
+
+  .lede {
+    max-width: 60ch;
+    margin-top: 2rem;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--mist);
+  }
+
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.9rem;
+    margin-top: 2.5rem;
+    list-style: none;
+  }
+
+  /* About */
+
+  .about-inner {
+    display: grid;
+    gap: 3rem;
+    max-width: 76rem;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 60rem) {
+    .about-inner {
+      grid-template-columns: 1.15fr 1fr;
+      gap: clamp(3rem, 7vw, 6rem);
+      align-items: start;
+    }
+  }
+
+  .pillars {
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .pillars div {
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--rule-strong);
+  }
+
+  .pillars dt {
+    font: italic 500 1.75rem / 1.1 var(--font-display);
+    color: var(--gold-300);
+  }
+
+  .pillars dd {
+    margin-top: 0.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    text-wrap: pretty;
+    color: var(--mist);
+  }
+
+  /* Latest posts */
+
+  .blog {
+    background: linear-gradient(180deg, rgb(8 22 48 / 0.7), transparent);
+  }
+
+  .section-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .posts {
+    display: grid;
+    gap: 3rem clamp(1.5rem, 3vw, 2.75rem);
+    max-width: 76rem;
+    margin: clamp(2.5rem, 6vh, 3.75rem) auto 0;
+    list-style: none;
+  }
+
+  @media (min-width: 40rem) {
+    .posts {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 68rem) {
+    .posts {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .all {
+    margin-top: 3rem;
+    text-align: center;
+  }
+
+  /* Contact */
+
+  .contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .contact h2 {
+    margin-top: 1rem;
+    font: italic 500 clamp(2rem, 4vw, 2.75rem) / 1.15 var(--font-display);
+    color: var(--cream);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2.25rem;
+    list-style: none;
+  }
+
+  .actions a {
+    min-width: 15rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero > * {
+      animation: none;
+    }
+  }
+</style>
