@@ -1,10 +1,9 @@
 ---
-import { Image } from "astro:assets";
 import BookSection from "../components/BookSection.astro";
+import HeroArt from "../components/HeroArt.astro";
 import LogoEmblem from "../components/LogoEmblem.astro";
 import PostCard from "../components/PostCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import portrait from "../assets/deissy-olarte.jpg";
 import { areas } from "../content/services";
 import { site } from "../content/site";
 import { getPosts } from "../lib/sanity";
@@ -36,16 +35,9 @@ const jsonLd = {
         <li><a class="button-secondary" href="/miblog/">Leer el blog</a></li>
       </ul>
     </div>
-    <div class="hero-portrait">
+    <div class="hero-image">
       <div class="arch">
-        <Image
-          src={portrait}
-          alt="Deissy Olarte, sonriendo, ante un paisaje de montañas verdes"
-          widths={[360, 540, 720]}
-          sizes="(min-width: 56rem) 22rem, 17rem"
-          loading="eager"
-          fetchpriority="high"
-        />
+        <HeroArt />
       </div>
       <div class="badge">
         <LogoEmblem class="badge-emblem" id="lotus-hero" />
@@ -179,7 +171,8 @@ const jsonLd = {
 <style>
   /* Hero: hers, not the association's. The .org centres its lotus medallion
      over gold capitals; here the text is set to the left, her name in ink and
-     in mixed case, beside her photo in an arch with the lotus as a seal. */
+     in mixed case, beside a drawn sunrise in an arch with the lotus as a
+     seal. */
 
   .hero {
     display: grid;
@@ -199,7 +192,7 @@ const jsonLd = {
   }
 
   .hero-text > *,
-  .hero-portrait {
+  .hero-image {
     animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
 
@@ -207,7 +200,7 @@ const jsonLd = {
   .hero-text > :nth-child(3) { animation-delay: 0.2s; }
   .hero-text > :nth-child(4) { animation-delay: 0.3s; }
   .hero-text > :nth-child(5) { animation-delay: 0.42s; }
-  .hero-portrait { animation-delay: 0.25s; }
+  .hero-image { animation-delay: 0.25s; }
 
   @keyframes rise {
     from {
@@ -261,9 +254,9 @@ const jsonLd = {
     list-style: none;
   }
 
-  /* The photo in an arch, a second arch outlined behind it, the lotus in a
-     small round seal on its edge. */
-  .hero-portrait {
+  /* The drawing (HeroArt) in an arch, a second arch outlined behind it, the
+     lotus in a small round seal on its edge. */
+  .hero-image {
     position: relative;
     justify-self: center;
     width: min(100%, 17rem);
@@ -271,13 +264,13 @@ const jsonLd = {
   }
 
   @media (min-width: 56rem) {
-    .hero-portrait {
+    .hero-image {
       width: min(100%, 22rem);
       justify-self: end;
     }
   }
 
-  .hero-portrait::before {
+  .hero-image::before {
     content: "";
     position: absolute;
     inset: -0.9rem -0.9rem 0.9rem 0.9rem;
@@ -292,13 +285,6 @@ const jsonLd = {
     border-radius: 999px 999px 0 0;
     background: var(--paper-deep);
     box-shadow: 0 1.5rem 3rem var(--shadow);
-  }
-
-  .arch :global(img) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 38% 50%;
   }
 
   .badge {
@@ -488,7 +474,7 @@ const jsonLd = {
 
   @media (prefers-reduced-motion: reduce) {
     .hero-text > *,
-    .hero-portrait {
+    .hero-image {
       animation: none;
     }
 

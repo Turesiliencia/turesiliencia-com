@@ -1,0 +1,96 @@
+---
+// The home page's hero image, drawn rather than photographed: a sun rising
+// behind layered hills, with a dotted path climbing towards it (the road
+// travelled, the rebuilding after it). Decorative, so hidden from screen
+// readers. Its colours come from the theme's roles, so it follows the light
+// and dark themes (src/styles/theme.css).
+---
+
+<svg class="hero-art" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="hero-art-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" class="sky-top"></stop>
+      <stop offset="1" class="sky-bottom"></stop>
+    </linearGradient>
+    <radialGradient id="hero-art-sun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" class="sun-core"></stop>
+      <stop offset="1" class="sun-edge"></stop>
+    </radialGradient>
+  </defs>
+
+  <rect width="400" height="500" fill="url(#hero-art-sky)"></rect>
+
+  <g class="rings">
+    <circle cx="200" cy="300" r="118"></circle>
+    <circle cx="200" cy="300" r="156"></circle>
+    <circle cx="200" cy="300" r="200"></circle>
+  </g>
+  <circle cx="200" cy="300" r="86" fill="url(#hero-art-sun)"></circle>
+
+  <path class="ridge ridge-1" d="M0 318 C 60 292 120 284 190 306 S 330 336 400 296 V500 H0 Z"></path>
+  <path class="ridge ridge-2" d="M0 372 C 80 344 150 352 224 378 S 344 398 400 364 V500 H0 Z"></path>
+  <path class="path" d="M70 500 C 110 470 150 452 186 424 S 236 372 252 346"></path>
+  <path class="ridge ridge-3" d="M0 438 C 92 414 172 426 252 446 S 364 452 400 434 V500 H0 Z"></path>
+  <circle class="star" cx="252" cy="346" r="3"></circle>
+</svg>
+
+<style>
+  .hero-art {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .sky-top {
+    stop-color: var(--paper);
+  }
+
+  .sky-bottom {
+    stop-color: var(--paper-deep);
+  }
+
+  .sun-core {
+    stop-color: var(--gold-300);
+    stop-opacity: 0.85;
+  }
+
+  .sun-edge {
+    stop-color: var(--gold-300);
+    stop-opacity: 0.25;
+  }
+
+  .rings circle {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1;
+  }
+
+  .rings circle:nth-child(1) { stroke-opacity: 0.45; }
+  .rings circle:nth-child(2) { stroke-opacity: 0.28; }
+  .rings circle:nth-child(3) { stroke-opacity: 0.16; }
+
+  /* Hills in the logo's blue, from far and pale to near and deep. */
+  .ridge-1 {
+    fill: color-mix(in srgb, var(--blue-700) 22%, var(--paper));
+  }
+
+  .ridge-2 {
+    fill: color-mix(in srgb, var(--blue-700) 42%, var(--paper));
+  }
+
+  .ridge-3 {
+    fill: color-mix(in srgb, var(--blue-700) 68%, var(--paper));
+  }
+
+  .path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 0.1 8;
+  }
+
+  .star {
+    fill: var(--accent);
+  }
+</style>
