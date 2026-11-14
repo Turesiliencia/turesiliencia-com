@@ -26,9 +26,22 @@ export const book = {
   otherStoreUrl: "https://www.amazon.com/dp/B0HQ1SSMKB",
 };
 
-// The sections of the home page, linked from the header and the footer.
+// Her sessions: what they cost and where they are paid. The prices are the
+// ones her old site's Tarifas page showed (last updated November 2025).
+export const sessions = {
+  prices: [
+    { name: "Sesión individual", price: "70 €" },
+    { name: "Bono de 4 sesiones individuales", price: "250 €" },
+    { name: "Sesión en pareja", price: "80 €" },
+    { name: "Bono de 4 sesiones en pareja", price: "300 €" },
+  ],
+  paypalUrl: "https://paypal.me/turesilienciado",
+};
+
+// The pages and home-page sections linked from the header and the footer.
 export const nav = [
-  { label: "Sobre mí", href: "/#sobre-mi" },
+  { label: "Mi historia", href: "/mihistoria/" },
+  { label: "Servicios", href: "/servicios/" },
   { label: "Blog", href: "/miblog/" },
   { label: "Mi libro", href: "/#libro" },
   { label: "Contacto", href: "/#contacto" },

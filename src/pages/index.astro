@@ -28,11 +28,11 @@ const jsonLd = {
     <p class="subtitle">Duelo migratorio, pérdida y transiciones vitales</p>
     <p class="lede">
       Acompaño a personas que atraviesan una pérdida, una migración o un cambio que lo altera todo, para
-      que puedan volver a reconocerse. Aquí comparto lo que escribo y mi libro.
+      que puedan volver a reconocerse. Aquí comparto también lo que escribo y mi libro.
     </p>
     <ul class="ctas">
-      <li><a class="button-primary" href="/miblog/">Leer el blog</a></li>
-      <li><a class="button-secondary" href="#libro">Mi libro</a></li>
+      <li><a class="button-primary" href="/servicios/">Cómo te acompaño</a></li>
+      <li><a class="button-secondary" href="/miblog/">Leer el blog</a></li>
     </ul>
   </section>
 
@@ -49,6 +49,11 @@ const jsonLd = {
           Hoy me centro en el duelo migratorio, la pérdida y las transiciones vitales: esos cambios que nos
           obligan a preguntarnos quiénes somos y cuál es nuestro lugar. Soy también fundadora de la{" "}
           <a href={site.association.url}>{site.association.name}</a>.
+        </p>
+        <p class="more">
+          <a class="arrow-link" href="/mihistoria/">
+            Mi historia <span aria-hidden="true">→</span>
+          </a>
         </p>
       </div>
       <dl class="pillars">
@@ -71,6 +76,22 @@ const jsonLd = {
           <dd>Premio «Mujer Resiliente del Año 2025» de la Fundación Con Valores.</dd>
         </div>
       </dl>
+    </div>
+  </section>
+
+  <section id="servicios" class="services section" aria-labelledby="services-title">
+    <div class="services-inner">
+      <p class="label">Cómo te acompaño</p>
+      <h2 id="services-title" class="title">Sesiones online, desde cualquier lugar</h2>
+      <p class="body-text">
+        Acompaño en el duelo migratorio, el trauma y la pérdida, y también a familias y centros educativos.
+        Las sesiones son por videoconferencia, individuales o en pareja, y ofrezco capacitaciones y talleres
+        para grupos y empresas.
+      </p>
+      <ul class="ctas">
+        <li><a class="button-primary" href="/servicios/">Servicios y tarifas</a></li>
+        <li><a class="button-secondary" href="/servicios/#reservar">Reservar una sesión</a></li>
+      </ul>
     </div>
   </section>
 
@@ -103,8 +124,8 @@ const jsonLd = {
     <p class="label">Contacto</p>
     <h2 id="contact-title">Escríbeme</h2>
     <p class="body-text">
-      Si quieres contarme tu historia, preguntarme por el libro o proponerme una colaboración, puedes
-      escribirme o encontrarme en Instagram.
+      Si quieres reservar una sesión, contarme tu historia, preguntarme por el libro o proponerme una
+      colaboración, puedes escribirme o encontrarme en Instagram.
     </p>
     <ul class="actions">
       <li>
@@ -271,6 +292,21 @@ const jsonLd = {
     line-height: 1.7;
     text-wrap: pretty;
     color: var(--mist);
+  }
+
+  .more {
+    margin-top: 2rem;
+  }
+
+  /* Services */
+
+  .services-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 76rem;
+    margin-inline: auto;
+    text-align: center;
   }
 
   /* Latest posts */

@@ -1,4 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/temarios", "destination": "/servicios/", "permanent": true },
+    { "source": "/temarios/", "destination": "/servicios/", "permanent": true },
+    { "source": "/tarifas", "destination": "/servicios/#tarifas", "permanent": true },
+    { "source": "/tarifas/", "destination": "/servicios/#tarifas", "permanent": true },
+    { "source": "/tuvideoconferencia", "destination": "/servicios/#tarifas", "permanent": true },
+    { "source": "/tuvideoconferencia/", "destination": "/servicios/#tarifas", "permanent": true }
+  ]
 }

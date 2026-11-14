@@ -1,0 +1,433 @@
+---
+// Her story, at the same address as on the old site. The text is hers, from
+// that page (last updated March 2026), with spelling and punctuation corrected.
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import portrait from "../assets/deissy-olarte.jpg";
+import { site } from "../content/site";
+
+const description =
+  "La historia de Deissy Olarte: su formación, su experiencia en docencia y acompañamiento, y el premio «Mujer Resiliente del Año 2025» de la Fundación Con Valores.";
+
+const education = [
+  "Teóloga, titulada en EE. UU.",
+  "Máster en Psicología y Gestión Familiar (Universidad de Valencia)",
+  "Máster en Atención a la Diversidad y Educación Inclusiva",
+  "Curso de Docencia y Formación para el Empleo (Valencia, España)",
+  "Curso de Fonética y Fonoaudiología (Universidad Nacional de Colombia)",
+  "18 cursos de actualización en el SENA (Colombia)",
+  "Formación en Inteligencia Artificial",
+];
+
+const offer = [
+  "Sesiones individuales y grupales online, en vivo, accesibles desde cualquier huso horario",
+  "Capacitaciones especializadas en resiliencia migratoria, reinvención profesional y manejo experto de transiciones vitales",
+  "Una comunidad internacional de personas que eligen liderar su propia transformación, no solo adaptarse",
+];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  url: new URL("/mihistoria/", Astro.site).href,
+  mainEntity: {
+    "@type": "Person",
+    name: "Deissy Olarte",
+    url: Astro.site?.href,
+    jobTitle: "Especialista en duelo migratorio y transiciones vitales",
+    award: "Mujer Resiliente del Año 2025, Fundación Con Valores",
+    sameAs: [site.instagram.url, site.association.url],
+  },
+};
+---
+
+<BaseLayout title="Mi historia" description={description} jsonLd={jsonLd} current="/mihistoria/">
+  <section class="intro">
+    <div class="intro-text">
+      <p class="label">Mi historia</p>
+      <h1 class="title">Alguien que te escucha puede marcar la diferencia</h1>
+      <p class="body-text">
+        Hola, soy Deissy Olarte. Yo, quizás igual que tú, tuve una experiencia de vida un poco difícil. He
+        pasado por momentos muy complicados, pero no por ello me he derrumbado; también busqué ayuda, y no
+        me arrepiento en lo más mínimo, pues tengo claro que para eso existen los profesionales, y aún más
+        aquellos que tienen un valor humano innegable.
+      </p>
+      <p class="body-text">
+        Por esto y por muchas cosas más me he dedicado a ser útil para otras personas, a curar el alma o el
+        corazón, como dicen algunos.
+      </p>
+    </div>
+    <Image
+      class="portrait"
+      src={portrait}
+      alt="Deissy Olarte, sonriendo, ante un paisaje de montañas verdes"
+      widths={[360, 540, 720]}
+      sizes="(min-width: 60rem) 30rem, 100vw"
+      loading="eager"
+    />
+  </section>
+
+  <section class="facets section" aria-label="Formación y experiencia">
+    <div class="facets-inner">
+      <div class="facet">
+        <h2 class="facet-title">Mi formación</h2>
+        <p class="body-text">Me he formado con los mejores profesionales.</p>
+        <ul class="ticks">
+          {education.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+      <div class="facet">
+        <h2 class="facet-title">Mi experiencia</h2>
+        <blockquote>
+          <p>
+            Con más de 15 años en las dos ramas que tanto amo, la docencia (la cátedra universitaria y el
+            bachillerato) y el coaching, puedo decir que por mi vida han pasado no pacientes, sino personas que
+            en su momento necesitaron un profesional y una persona cercana, con un alto valor humano y un
+            sentido de espiritualidad idóneo.
+          </p>
+        </blockquote>
+      </div>
+      <div class="facet">
+        <h2 class="facet-title">Qué me hace diferente</h2>
+        <blockquote>
+          <p>
+            Transformo el duelo migratorio, el trauma y la pérdida en resiliencia y propósito. Brindo
+            herramientas para la reconstrucción personal y la adaptación con bienestar emocional. Asesoro a
+            profesionales, y ayudo a familias en educación inclusiva y a personas neurodivergentes a encontrar
+            su lugar y avanzar con dignidad y elocuencia.
+          </p>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="story section" aria-labelledby="story-title">
+    <div class="story-inner">
+      <p class="label">Transiciones vitales</p>
+      <h2 id="story-title" class="title">El duelo migratorio no te define</h2>
+      <p class="body-text">
+        Hay etapas en la vida que nos desafían a un nivel profundo: transiciones vitales que redefinen
+        quiénes somos, cómo nos relacionamos y cuál es nuestro lugar en el mundo. La migración es una de las
+        más transformadoras. Cruza fronteras físicas y, al mismo tiempo, emocionales y profesionales. Trae
+        consigo un <em>duelo múltiple</em> (por el origen, las redes, el contexto cotidiano, el estatus que
+        se reescribe) que, lejos de ser un obstáculo, se convierte en el catalizador de una resiliencia
+        auténtica.
+      </p>
+      <p class="body-text">
+        Este proceso no es exclusivo de unos pocos: millones de profesionales, emprendedores y familias en
+        todo el mundo lo viven cada año. Lo que marca la diferencia entre estancarse y salir adelante es
+        contar con herramientas expertas: comprensión integral del duelo, estrategias para integrar lo
+        perdido y construir lo nuevo, y un acompañamiento que acelera la transformación sin invalidar
+        ninguna etapa.
+      </p>
+      <p class="body-text">
+        En 2025, la <strong>Fundación Con Valores</strong>, tras evaluar miles de candidaturas
+        internacionales, me otorgó el premio <strong>«Mujer Resiliente del Año»</strong> por dedicar mi
+        trayectoria a convertir estas transiciones en portales de crecimiento. Ese reconocimiento no solo
+        celebra una historia personal: valida un método probado, global y orientado a resultados reales.
+      </p>
+      <p class="body-text">
+        Con más de 10 años en docencia universitaria, coaching transformacional y acompañamiento humano,
+        como teóloga, máster y especialista en duelos complejos, he creado un enfoque integral que combina
+        teología, inteligencia emocional, reconstrucción de la identidad profesional y espiritualidad
+        aplicada. Este método ha acompañado a cientos de migrantes en diferentes continentes a transformar
+        esas transiciones vitales en fortaleza y propósito de vida.
+      </p>
+      <p class="body-text">Hoy, en 2026, ese camino continúa:</p>
+      <ul class="ticks">
+        {offer.map((item) => <li>{item}</li>)}
+      </ul>
+
+      <p class="pull">Te revela tu capacidad ilimitada de renacer.</p>
+
+      <p class="body-text">
+        Porque migrar no es una interrupción: es una <em>invitación universal</em> a redefinirte con mayor
+        sabiduría y poder interior, y con una elocuencia que nunca imaginaste.
+      </p>
+      <p class="body-text">
+        Este premio no es el final de un camino. Es la prueba pública de que la resiliencia plena es posible…
+        y está al alcance de cualquiera que decida transitarla con intención.
+      </p>
+    </div>
+  </section>
+
+  <section class="videos section" aria-labelledby="videos-title">
+    <div class="videos-inner">
+      <h2 id="videos-title" class="label">En vídeo</h2>
+      <div class="video-grid">
+        <figure>
+          <video
+            src="/video/mujer-resiliente-2025.mp4"
+            poster="/video/mujer-resiliente-2025.jpg"
+            width="848"
+            height="480"
+            controls
+            preload="none"
+            playsinline></video>
+          <figcaption>El momento del reconocimiento, en la gala de la Fundación Con Valores</figcaption>
+        </figure>
+        <figure>
+          <div class="embed">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/LQVeVrUJOEo"
+              title="Deissy Olarte, la Mujer Resiliente del Año (entrevista en «Marcas que dejan Huellas»)"
+              loading="lazy"
+              allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen></iframe>
+          </div>
+          <figcaption>La entrevista completa en «Marcas que dejan Huellas»</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta section" aria-labelledby="cta-title">
+    <p class="label">Agenda tu videoconferencia</p>
+    <h2 id="cta-title" class="cta-title">¿Estás atravesando una transición vital?</h2>
+    <p class="body-text">
+      Si estás navegando una transición, migratoria o de cualquier tipo, y buscas convertirla en tu mayor
+      ventaja, agenda tu videoconferencia personalizada. Juntos diseñamos el mapa desde el duelo hasta tu
+      versión más resiliente.
+    </p>
+    <ul class="actions">
+      <li><a class="button-primary" href="/servicios/">Servicios y tarifas</a></li>
+      <li><a class="button-secondary" href={`mailto:${site.email}`}>Escríbeme</a></li>
+    </ul>
+    <p class="signature">
+      <strong>Deissy Olarte</strong>
+      Fundadora de <a href={site.association.url}>TuResiliencia</a><br />
+      Mujer Resiliente del Año 2025, Fundación Con Valores<br />
+      Especialista en duelo migratorio y transiciones vitales
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    display: grid;
+    gap: 2.75rem;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding: clamp(3.5rem, 9vh, 5.5rem) var(--gutter) clamp(4rem, 10vh, 6rem);
+    box-sizing: content-box;
+  }
+
+  @media (min-width: 60rem) {
+    .intro {
+      grid-template-columns: 1.2fr 1fr;
+      gap: clamp(3rem, 7vw, 6rem);
+      align-items: center;
+    }
+  }
+
+  .intro .title {
+    font-size: clamp(2.5rem, 5.5vw, 3.75rem);
+  }
+
+  :global(.portrait) {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--rule-strong);
+    box-shadow: 0 1.5rem 3rem rgb(0 0 0 / 0.35);
+  }
+
+  /* Formación, experiencia, qué me hace diferente */
+
+  .facets {
+    background: linear-gradient(180deg, rgb(8 22 48 / 0.7), transparent);
+  }
+
+  .facets-inner {
+    display: grid;
+    gap: 3rem;
+    max-width: 76rem;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 60rem) {
+    .facets-inner {
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(2rem, 4vw, 3.5rem);
+    }
+  }
+
+  .facet {
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--rule-strong);
+  }
+
+  .facet-title {
+    font: italic 500 1.9rem / 1.1 var(--font-display);
+    color: var(--gold-300);
+  }
+
+  .facet .body-text {
+    margin-top: 0.9rem;
+  }
+
+  blockquote {
+    margin-top: 1rem;
+    font: italic 500 1.3rem / 1.5 var(--font-display);
+    text-wrap: pretty;
+    color: var(--cream);
+  }
+
+  blockquote p::before {
+    content: open-quote;
+  }
+
+  blockquote p::after {
+    content: close-quote;
+  }
+
+  .ticks {
+    margin-top: 1rem;
+    list-style: none;
+  }
+
+  .ticks li {
+    position: relative;
+    padding-left: 1.4rem;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    text-wrap: pretty;
+    color: var(--mist);
+  }
+
+  .ticks li + li {
+    margin-top: 0.55rem;
+  }
+
+  .ticks li::before {
+    content: "";
+    position: absolute;
+    top: 0.62em;
+    left: 0;
+    width: 0.5rem;
+    height: 1px;
+    background: var(--gold-300);
+  }
+
+  /* The long text */
+
+  .story-inner {
+    max-width: 44rem;
+    margin-inline: auto;
+  }
+
+  .story .body-text {
+    max-width: none;
+  }
+
+  .story .ticks {
+    margin-top: 1.25rem;
+  }
+
+  .story .ticks li {
+    font-size: 1rem;
+  }
+
+  .pull {
+    margin: clamp(2.5rem, 6vh, 3.5rem) 0 0.5rem;
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--gold-300);
+    font: italic 500 clamp(1.7rem, 3.4vw, 2.3rem) / 1.25 var(--font-display);
+    text-wrap: balance;
+    color: var(--gold-300);
+  }
+
+  /* Videos */
+
+  .videos-inner {
+    max-width: 76rem;
+    margin-inline: auto;
+  }
+
+  .videos h2 {
+    text-align: center;
+  }
+
+  .video-grid {
+    display: grid;
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 60rem) {
+    .video-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1.5rem, 3vw, 2.75rem);
+    }
+  }
+
+  video,
+  .embed {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--rule);
+    background: var(--navy-900);
+  }
+
+  .embed iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  figcaption {
+    margin-top: 0.9rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--mist);
+  }
+
+  /* Call to action and signature */
+
+  .cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .cta-title {
+    margin-top: 1rem;
+    font: italic 500 clamp(2rem, 4vw, 2.75rem) / 1.15 var(--font-display);
+    text-wrap: balance;
+    color: var(--cream);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.9rem;
+    margin-top: 2.25rem;
+    list-style: none;
+  }
+
+  .signature {
+    margin-top: clamp(3rem, 7vh, 4rem);
+    font-size: 0.875rem;
+    line-height: 1.8;
+    color: var(--mist);
+  }
+
+  .signature strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    font: italic 600 1.6rem / 1.3 var(--font-display);
+    color: var(--cream);
+  }
+
+  .signature a {
+    color: var(--cream);
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  .signature a:hover {
+    color: var(--gold-300);
+  }
+</style>

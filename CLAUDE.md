@@ -8,14 +8,16 @@ Deissy Olarte's personal site, at https://turesiliencia.com. The association TuR
 
 It is a static Astro site in Spanish, rebuilt from her old WordPress site (gone since 2026-11-13). Its pages:
 
-| Address       | File                     | What it is                                                               |
-| ------------- | ------------------------ | ------------------------------------------------------------------------ |
-| `/`           | `src/pages/index.astro`  | Home: hero, about her, the three latest posts, the book, contact         |
-| `/miblog/`    | `src/pages/miblog/`      | Every published post, newest first (the same address as on WordPress)    |
-| `/<slug>/`    | `src/pages/[slug].astro` | A post, at the address it had on WordPress, then three more and the book |
-| anything else | `src/pages/404.astro`    | Not found, with links home and to the blog; the old pages land here too  |
+| Address        | File                         | What it is                                                                       |
+| -------------- | ---------------------------- | -------------------------------------------------------------------------------- |
+| `/`            | `src/pages/index.astro`      | Home: hero, about her, how she works, the three latest posts, the book, contact  |
+| `/mihistoria/` | `src/pages/mihistoria.astro` | Her story, education, the 2025 award (video in `public/video/`) and an interview |
+| `/servicios/`  | `src/pages/servicios.astro`  | The six areas she works in, online sessions, prices (`#tarifas`), how to book    |
+| `/miblog/`     | `src/pages/miblog/`          | Every published post, newest first (the same address as on WordPress)            |
+| `/<slug>/`     | `src/pages/[slug].astro`     | A post, at the address it had on WordPress, then three more and the book         |
+| anything else  | `src/pages/404.astro`        | Not found, with links home and to the blog                                       |
 
-Her other old pages (Mi historia, Tarifas, Temarios, Tu videoconferencia) are not rebuilt yet. The blog posts come from Sanity (below); everything else is in the code. Her contact details and the book's Amazon links are in `src/content/site.ts`, the same as the `.org`'s (`src/content/site.ts` and `src/content/book.ts` there): change both sites together. `../CLAUDE.md` lists everything the two share. It is indexable, unlike the `.org`, with a sitemap (`@astrojs/sitemap`) and `public/robots.txt`.
+Her old pages are rebuilt from her own wording (`../refs/com/markdown-paginas/`), corrected and in the first person: Mi historia at its old address, and Temarios, Tu videoconferencia and Tarifas merged into `/servicios/`, their old addresses redirecting there (`vercel.json`, with and without the slash). The blog posts come from Sanity (below); everything else is in the code. The session prices and the PayPal link are `sessions` in `src/content/site.ts`. Her contact details and the book's Amazon links are in the same file, the same as the `.org`'s (`src/content/site.ts` and `src/content/book.ts` there): change both sites together. `../CLAUDE.md` lists everything the two share. It is indexable, unlike the `.org`, with a sitemap (`@astrojs/sitemap`) and `public/robots.txt`.
 
 It is live at https://turesiliencia.com since 2026-11-13 (Vercel project `turesiliencia-com` on her account, deployed on every push to `main`). The domain is registered at Vercel with Vercel's nameservers; `www` redirects to the bare domain (308), and https://deissy-olarte.vercel.app still serves the site too. The site's own address (canonical links, link-preview tags, sitemap) comes from `site` in `astro.config.mjs`, which takes Vercel's `VERCEL_PROJECT_PRODUCTION_URL` at build time (the shortest production domain, now `turesiliencia.com`): after changing the project's domains, redeploy. Local builds fall back to `turesiliencia.com`.
 
@@ -44,7 +46,7 @@ Stop the preview server afterwards (`npx astro preview stop`, or by its PID from
 
 - **Where**: Sanity project `qnm95gjz`, dataset `production` (public: anyone can read published documents; drafts need a login), owned by her Sanity account (the "Turesiliencia" GitHub login). Free plan.
 - **The Studio** is in `studio/`, a separate npm package that neither Astro nor Vercel builds: `cd studio && npm install && npm run dev` (http://localhost:3333), `npm run deploy` to publish the hosted Studio. Its schema (`studio/schemaTypes/`) has one document type, `post` (title, slug, date, excerpt, cover image with alt text, body), and a `youtube` block for the body. Its labels are in Spanish, for her.
-- **The site reads Sanity at build time only** (`src/lib/sanity.ts`, published perspective, no CDN so a build right after publishing sees the post), so the site stays fully static. A new or changed post goes live with the next deployment: a Sanity webhook calling a Vercel deploy hook is to start one on every publish (not set up yet).
+- **The site reads Sanity at build time only** (`src/lib/sanity.ts`, published perspective, no CDN so a build right after publishing sees the post), so the site stays fully static. A new or changed post goes live with the next deployment: a Sanity webhook calls a Vercel deploy hook, which starts one on every publish of a post.
 - **The body** is Portable Text, turned into HTML by `src/lib/portable-text.ts` (`@portabletext/to-html`, which escapes the text; the image and YouTube blocks escape what they use). Its styles are under `.prose` in `src/pages/[slug].astro`.
 - **Images** are served from Sanity's CDN in several widths (`imageAttrs` in `src/lib/sanity.ts`); cards crop to 3:2 following the hotspot set in the Studio. A post's link preview is its cover cropped to 1200×630 JPEG; pages without one use `public/social-card-book.png`.
 - **Excerpts**: the post's own, or else its first paragraphs cut at about 180 characters.
