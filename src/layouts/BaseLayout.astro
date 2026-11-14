@@ -48,7 +48,7 @@ const ogImageAlt =
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#050d1f" />
+    <meta name="theme-color" content="#f7f4ec" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -92,7 +92,7 @@ const ogImageAlt =
     overflow: clip;
   }
 
-  /* The logo's blue, as light falling from above onto the navy. */
+  /* Warm light from above, in the book cover's gold. */
   .page::before {
     content: "";
     position: absolute;
@@ -100,8 +100,8 @@ const ogImageAlt =
     z-index: -1;
     height: min(120vh, 64rem);
     background:
-      radial-gradient(ellipse 46% 34% at 50% 18%, rgb(0 102 255 / 0.16), transparent 70%),
-      radial-gradient(ellipse 85% 70% at 50% 0%, rgb(0 51 128 / 0.6), transparent 72%);
+      radial-gradient(ellipse 50% 36% at 50% 18%, rgb(255 255 255 / 0.55), transparent 70%),
+      radial-gradient(ellipse 85% 70% at 50% 0%, rgb(215 186 127 / 0.3), transparent 72%);
     pointer-events: none;
   }
 

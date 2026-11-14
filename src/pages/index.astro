@@ -145,7 +145,9 @@ const jsonLd = {
 </BaseLayout>
 
 <style>
-  /* Hero: composed like the book cover, with the lotus in the gold ring. */
+  /* Hero: the lotus in the gold ring, as on the .org, but her name in navy ink
+     on paper and in mixed case, where the association's headline is gold
+     capitals on navy. */
 
   .hero {
     display: flex;
@@ -184,16 +186,16 @@ const jsonLd = {
     content: "";
     position: absolute;
     inset: 0;
-    border: 1px solid rgb(215 186 127 / 0.6);
+    border: 1px solid var(--rule-strong);
     border-radius: 50%;
-    background: radial-gradient(circle, rgb(5 13 31 / 0.55), rgb(5 13 31 / 0.15) 70%);
+    background: radial-gradient(circle, #fff 30%, rgb(255 255 255 / 0.55) 72%);
   }
 
   :global(.hero-emblem) {
     position: relative;
     width: 78%;
     margin-top: 3%;
-    filter: drop-shadow(0 0.9rem 1.6rem rgb(0 0 0 / 0.45));
+    filter: drop-shadow(0 0.8rem 1.2rem rgb(8 22 48 / 0.18));
   }
 
   .eyebrow {
@@ -213,19 +215,10 @@ const jsonLd = {
 
   .headline {
     margin-top: 1.4rem;
-    font: 600 clamp(2.6rem, 7vw, 5rem) / 1.04 var(--font-display);
-    letter-spacing: 0.035em;
-    text-transform: uppercase;
+    font: 500 clamp(3.2rem, 8.5vw, 6.25rem) / 1 var(--font-display);
+    letter-spacing: 0.005em;
     text-wrap: balance;
-    color: var(--gold-300);
-  }
-
-  @supports (background-clip: text) {
-    .headline {
-      background: linear-gradient(180deg, #ecd9ac 0%, #d7ba7f 48%, #b9975a 100%);
-      background-clip: text;
-      color: transparent;
-    }
+    color: var(--ink);
   }
 
   .subtitle {
@@ -233,7 +226,7 @@ const jsonLd = {
     margin-top: 1.25rem;
     font: italic 500 clamp(1.4rem, 2.5vw, 1.95rem) / 1.28 var(--font-display);
     text-wrap: balance;
-    color: var(--cream);
+    color: var(--accent);
   }
 
   .lede {
@@ -242,7 +235,7 @@ const jsonLd = {
     font-size: 1.0625rem;
     line-height: 1.75;
     text-wrap: pretty;
-    color: var(--mist);
+    color: var(--ink-soft);
   }
 
   .ctas {
@@ -283,7 +276,7 @@ const jsonLd = {
 
   .pillars dt {
     font: italic 500 1.75rem / 1.1 var(--font-display);
-    color: var(--gold-300);
+    color: var(--accent);
   }
 
   .pillars dd {
@@ -291,7 +284,7 @@ const jsonLd = {
     font-size: 0.9375rem;
     line-height: 1.7;
     text-wrap: pretty;
-    color: var(--mist);
+    color: var(--ink-soft);
   }
 
   .more {
@@ -312,7 +305,7 @@ const jsonLd = {
   /* Latest posts */
 
   .blog {
-    background: linear-gradient(180deg, rgb(8 22 48 / 0.7), transparent);
+    background: var(--band);
   }
 
   .section-head {
@@ -359,7 +352,7 @@ const jsonLd = {
   .contact h2 {
     margin-top: 1rem;
     font: italic 500 clamp(2rem, 4vw, 2.75rem) / 1.15 var(--font-display);
-    color: var(--cream);
+    color: var(--ink);
   }
 
   .actions {

@@ -1,5 +1,5 @@
-/* Tokens shared with turesiliencia.org: navy and blues from the logo, gold
-   and cream from the book cover. */
+/* The brand's palette, shared with turesiliencia.org: navy and blues from the
+   logo, gold and cream from the book cover. */
 :root {
   --navy-950: #050d1f;
   --navy-900: #081630;
@@ -7,15 +7,53 @@
   --gold-300: #d7ba7f;
   --cream: #ece9dc;
   --mist: #a9b4cb;
-  --rule: rgb(215 186 127 / 0.2);
-  --rule-strong: rgb(215 186 127 / 0.45);
 
   --font-display: var(--font-cormorant);
   --font-sans: var(--font-montserrat);
 
   --gutter: clamp(1.25rem, 5vw, 4rem);
+}
+
+/* The roles those colours play. The .org is the dark side of the brand (navy
+   page, cream text); this site, hers, is the light side: cream paper, navy ink,
+   a deeper gold that reads on paper. `.dark` turns a band back into the .org's
+   navy (the footer, the book), so the two sites stay visibly one family. */
+:root {
+  --paper: #f7f4ec;
+  --paper-deep: #efe9da;
+  --ink: var(--navy-900);
+  --ink-soft: #46506a;
+  --accent: #7d6328;
+  --accent-hover: #5c4819;
+  --rule: rgb(125 99 40 / 0.22);
+  --rule-strong: rgb(125 99 40 / 0.45);
+  --band: linear-gradient(180deg, var(--paper-deep), rgb(239 233 218 / 0));
+  --shadow: rgb(8 22 48 / 0.2);
+  --button-bg: var(--navy-900);
+  --button-ink: var(--cream);
+  --button-hover: var(--blue-700);
+
+  color-scheme: light;
+}
+
+.dark {
+  --paper: var(--navy-950);
+  --paper-deep: var(--navy-900);
+  --ink: var(--cream);
+  --ink-soft: var(--mist);
+  --accent: var(--gold-300);
+  --accent-hover: #ecd9ac;
+  --rule: rgb(215 186 127 / 0.2);
+  --rule-strong: rgb(215 186 127 / 0.45);
+  --band: linear-gradient(180deg, rgb(8 22 48 / 0.7), rgb(8 22 48 / 0));
+  --shadow: rgb(0 0 0 / 0.45);
+  --button-bg: var(--gold-300);
+  --button-ink: var(--navy-950);
+  --button-hover: #e6cf9c;
 
   color-scheme: dark;
+  background: var(--paper);
+  color: var(--ink);
 }
 
 *,
@@ -29,7 +67,7 @@
 html {
   /* Room for the sticky header when jumping to a section. */
   scroll-padding-top: 7rem;
-  background: var(--navy-950);
+  background: var(--paper);
   -webkit-text-size-adjust: 100%;
 }
 
@@ -47,8 +85,8 @@ html {
 
 body {
   min-height: 100dvh;
-  color: var(--cream);
-  background: var(--navy-950);
+  color: var(--ink);
+  background: var(--paper);
   font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.6;
@@ -72,7 +110,7 @@ svg {
 }
 
 :focus-visible {
-  outline: 2px solid var(--gold-300);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -93,7 +131,7 @@ svg {
   font: 600 0.75rem / 1.4 var(--font-sans);
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--gold-300);
+  color: var(--accent);
 }
 
 .title {
@@ -101,7 +139,7 @@ svg {
   font: 600 clamp(2.1rem, 4.4vw, 3.2rem) / 1.08 var(--font-display);
   letter-spacing: 0.01em;
   text-wrap: balance;
-  color: var(--cream);
+  color: var(--ink);
 }
 
 .body-text {
@@ -109,18 +147,18 @@ svg {
   margin-top: 1.25rem;
   line-height: 1.75;
   text-wrap: pretty;
-  color: var(--mist);
+  color: var(--ink-soft);
 }
 
 .body-text a {
-  color: var(--cream);
+  color: var(--ink);
   border-bottom: 1px solid var(--rule-strong);
   transition: color 0.2s, border-color 0.2s;
 }
 
 .body-text a:hover {
-  color: var(--gold-300);
-  border-color: var(--gold-300);
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 .button-primary,
@@ -129,7 +167,7 @@ svg {
   flex-direction: column;
   gap: 0.4rem;
   padding: 1rem 1.75rem;
-  border: 1px solid var(--gold-300);
+  border: 1px solid var(--button-bg);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.2em;
@@ -148,24 +186,25 @@ svg {
 }
 
 .button-primary {
-  background: var(--gold-300);
-  color: var(--navy-950);
+  background: var(--button-bg);
+  color: var(--button-ink);
 }
 
 .button-primary:hover {
-  background: #e6cf9c;
+  border-color: var(--button-hover);
+  background: var(--button-hover);
 }
 
 .button-secondary {
-  color: var(--gold-300);
+  color: var(--accent);
 }
 
 .button-secondary span {
-  color: var(--cream);
+  color: var(--ink);
 }
 
 .button-secondary:hover {
-  background: rgb(215 186 127 / 0.1);
+  background: var(--rule);
 }
 
 .arrow-link {
@@ -176,7 +215,7 @@ svg {
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold-300);
+  color: var(--accent);
 }
 
 .arrow-link span {
@@ -185,7 +224,7 @@ svg {
 }
 
 .arrow-link:hover {
-  color: #ecd9ac;
+  color: var(--accent-hover);
 }
 
 .arrow-link:hover span {
