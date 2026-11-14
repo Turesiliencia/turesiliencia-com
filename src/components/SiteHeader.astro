@@ -1,5 +1,6 @@
 ---
 import LogoEmblem from "./LogoEmblem.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 import { nav, site } from "../content/site";
 
 interface Props {
@@ -27,6 +28,9 @@ const { current } = Astro.props;
         }
       </ul>
     </nav>
+    <div class="tools">
+      <ThemeToggle />
+    </div>
   </div>
 </header>
 
@@ -36,16 +40,18 @@ const { current } = Astro.props;
     top: 0;
     z-index: 10;
     border-bottom: 1px solid var(--rule);
-    background: rgb(247 244 236 / 0.88);
+    background: var(--header-bg);
     backdrop-filter: blur(12px);
   }
 
-  /* Phone: the name on the first row, the sections on the second. */
+  /* Phone: the name and the theme button on the first row, the sections on
+     the second. */
   .inner {
     display: grid;
+    grid-template-columns: 1fr auto;
     grid-template-areas:
-      "brand"
-      "nav";
+      "brand tools"
+      "nav nav";
     align-items: center;
     max-width: calc(76rem + 2 * var(--gutter));
     margin-inline: auto;
@@ -54,9 +60,9 @@ const { current } = Astro.props;
 
   @media (min-width: 48rem) {
     .inner {
-      grid-template-columns: auto 1fr;
-      grid-template-areas: "brand nav";
-      gap: 2rem;
+      grid-template-columns: auto 1fr auto;
+      grid-template-areas: "brand nav tools";
+      gap: 1.25rem;
       padding-block: 0.85rem;
     }
   }
@@ -70,6 +76,10 @@ const { current } = Astro.props;
     color: var(--ink);
     font: 600 1.45rem / 1 var(--font-display);
     letter-spacing: 0.02em;
+  }
+
+  .tools {
+    grid-area: tools;
   }
 
   :global(.header-emblem) {

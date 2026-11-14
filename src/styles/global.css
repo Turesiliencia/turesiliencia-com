@@ -1,59 +1,10 @@
-/* The brand's palette, shared with turesiliencia.org: navy and blues from the
-   logo, gold and cream from the book cover. */
-:root {
-  --navy-950: #050d1f;
-  --navy-900: #081630;
-  --blue-700: #003380;
-  --gold-300: #d7ba7f;
-  --cream: #ece9dc;
-  --mist: #a9b4cb;
+@import "./theme.css";
 
+:root {
   --font-display: var(--font-cormorant);
   --font-sans: var(--font-montserrat);
 
   --gutter: clamp(1.25rem, 5vw, 4rem);
-}
-
-/* The roles those colours play. The .org is the dark side of the brand (navy
-   page, cream text); this site, hers, is the light side: cream paper, navy ink,
-   a deeper gold that reads on paper. `.dark` turns a band back into the .org's
-   navy (the footer, the book), so the two sites stay visibly one family. */
-:root {
-  --paper: #f7f4ec;
-  --paper-deep: #efe9da;
-  --ink: var(--navy-900);
-  --ink-soft: #46506a;
-  --accent: #7d6328;
-  --accent-hover: #5c4819;
-  --rule: rgb(125 99 40 / 0.22);
-  --rule-strong: rgb(125 99 40 / 0.45);
-  --band: linear-gradient(180deg, var(--paper-deep), rgb(239 233 218 / 0));
-  --shadow: rgb(8 22 48 / 0.2);
-  --button-bg: var(--navy-900);
-  --button-ink: var(--cream);
-  --button-hover: var(--blue-700);
-
-  color-scheme: light;
-}
-
-.dark {
-  --paper: var(--navy-950);
-  --paper-deep: var(--navy-900);
-  --ink: var(--cream);
-  --ink-soft: var(--mist);
-  --accent: var(--gold-300);
-  --accent-hover: #ecd9ac;
-  --rule: rgb(215 186 127 / 0.2);
-  --rule-strong: rgb(215 186 127 / 0.45);
-  --band: linear-gradient(180deg, rgb(8 22 48 / 0.7), rgb(8 22 48 / 0));
-  --shadow: rgb(0 0 0 / 0.45);
-  --button-bg: var(--gold-300);
-  --button-ink: var(--navy-950);
-  --button-hover: #e6cf9c;
-
-  color-scheme: dark;
-  background: var(--paper);
-  color: var(--ink);
 }
 
 *,

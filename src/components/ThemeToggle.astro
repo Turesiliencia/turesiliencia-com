@@ -1,0 +1,71 @@
+---
+// The header's light/dark button. The theme itself is set before the page is
+// drawn by the script in BaseLayout's head; this only switches and remembers
+// it. Its icons and its hiding without JavaScript are in src/styles/theme.css.
+---
+
+<button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false" aria-label="Tema oscuro">
+  <svg class="moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z"></path>
+  </svg>
+  <svg class="sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2.5M12 19.5V22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M2 12h2.5M19.5 12H22M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"></path>
+  </svg>
+</button>
+
+<script>
+  const root = document.documentElement;
+  const buttons = document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]");
+
+  function sync() {
+    const dark = root.dataset.theme === "dark";
+    for (const button of buttons) button.setAttribute("aria-pressed", String(dark));
+  }
+
+  for (const button of buttons) {
+    button.addEventListener("click", () => {
+      const next = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = next;
+      try {
+        localStorage.setItem("theme", next);
+      } catch {}
+    });
+  }
+
+  // The head script also follows the system's theme until the visitor chooses.
+  new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+  sync();
+</script>
+
+<style>
+  .theme-toggle {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 50%;
+    background: none;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  svg {
+    width: 1.05rem;
+    height: 1.05rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+</style>

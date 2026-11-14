@@ -1,8 +1,11 @@
 ---
+import { Image } from "astro:assets";
 import BookSection from "../components/BookSection.astro";
 import LogoEmblem from "../components/LogoEmblem.astro";
 import PostCard from "../components/PostCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import portrait from "../assets/deissy-olarte.jpg";
+import { areas } from "../content/services";
 import { site } from "../content/site";
 import { getPosts } from "../lib/sanity";
 
@@ -20,20 +23,34 @@ const jsonLd = {
 
 <BaseLayout jsonLd={jsonLd}>
   <section class="hero">
-    <div class="mark">
-      <LogoEmblem class="hero-emblem" id="lotus-hero" />
+    <div class="hero-text">
+      <p class="eyebrow label">TuResiliencia</p>
+      <h1 class="headline">Deissy Olarte</h1>
+      <p class="subtitle">Duelo migratorio, pérdida y transiciones vitales</p>
+      <p class="lede">
+        Acompaño a personas que atraviesan una pérdida, una migración o un cambio que lo altera todo, para
+        que puedan volver a reconocerse. Aquí comparto también lo que escribo y mi libro.
+      </p>
+      <ul class="ctas">
+        <li><a class="button-primary" href="/servicios/">Cómo te acompaño</a></li>
+        <li><a class="button-secondary" href="/miblog/">Leer el blog</a></li>
+      </ul>
     </div>
-    <p class="eyebrow label">TuResiliencia</p>
-    <h1 class="headline">Deissy Olarte</h1>
-    <p class="subtitle">Duelo migratorio, pérdida y transiciones vitales</p>
-    <p class="lede">
-      Acompaño a personas que atraviesan una pérdida, una migración o un cambio que lo altera todo, para
-      que puedan volver a reconocerse. Aquí comparto también lo que escribo y mi libro.
-    </p>
-    <ul class="ctas">
-      <li><a class="button-primary" href="/servicios/">Cómo te acompaño</a></li>
-      <li><a class="button-secondary" href="/miblog/">Leer el blog</a></li>
-    </ul>
+    <div class="hero-portrait">
+      <div class="arch">
+        <Image
+          src={portrait}
+          alt="Deissy Olarte, sonriendo, ante un paisaje de montañas verdes"
+          widths={[360, 540, 720]}
+          sizes="(min-width: 56rem) 22rem, 17rem"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="badge">
+        <LogoEmblem class="badge-emblem" id="lotus-hero" />
+      </div>
+    </div>
   </section>
 
   <section id="sobre-mi" class="about section" aria-labelledby="about-title">
@@ -81,17 +98,32 @@ const jsonLd = {
 
   <section id="servicios" class="services section" aria-labelledby="services-title">
     <div class="services-inner">
-      <p class="label">Cómo te acompaño</p>
-      <h2 id="services-title" class="title">Sesiones online, desde cualquier lugar</h2>
-      <p class="body-text">
-        Acompaño en el duelo migratorio, el trauma y la pérdida, y también a familias y centros educativos.
-        Las sesiones son por videoconferencia, individuales o en pareja, y ofrezco capacitaciones y talleres
-        para grupos y empresas.
-      </p>
-      <ul class="ctas">
-        <li><a class="button-primary" href="/servicios/">Servicios y tarifas</a></li>
-        <li><a class="button-secondary" href="/servicios/#reservar">Reservar una sesión</a></li>
-      </ul>
+      <div>
+        <p class="label">Cómo te acompaño</p>
+        <h2 id="services-title" class="title">Sesiones online, desde cualquier lugar</h2>
+        <p class="body-text">
+          Acompaño en el duelo migratorio, el trauma y la pérdida, y también a familias y centros educativos.
+          Las sesiones son por videoconferencia, individuales o en pareja, y ofrezco capacitaciones y talleres
+          para grupos y empresas.
+        </p>
+        <ul class="ctas">
+          <li><a class="button-primary" href="/servicios/">Servicios y tarifas</a></li>
+          <li><a class="button-secondary" href="/servicios/#reservar">Reservar una sesión</a></li>
+        </ul>
+      </div>
+      <ol class="areas">
+        {
+          areas.map((area, i) => (
+            <li>
+              <a href={`/servicios/#${area.id}`}>
+                <span class="number" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                <span class="area-title">{area.title}</span>
+                <span class="arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
     </div>
   </section>
 
@@ -145,27 +177,37 @@ const jsonLd = {
 </BaseLayout>
 
 <style>
-  /* Hero: the lotus in the gold ring, as on the .org, but her name in navy ink
-     on paper and in mixed case, where the association's headline is gold
-     capitals on navy. */
+  /* Hero: hers, not the association's. The .org centres its lotus medallion
+     over gold capitals; here the text is set to the left, her name in ink and
+     in mixed case, beside her photo in an arch with the lotus as a seal. */
 
   .hero {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    gap: clamp(3rem, 8vw, 4rem);
     align-items: center;
-    padding: clamp(3rem, 8vh, 5rem) var(--gutter) clamp(4.5rem, 11vh, 7rem);
-    text-align: center;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding: clamp(3rem, 9vh, 6rem) var(--gutter) clamp(4.5rem, 11vh, 7rem);
+    box-sizing: content-box;
   }
 
-  .hero > * {
+  @media (min-width: 56rem) {
+    .hero {
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: clamp(3rem, 7vw, 6rem);
+    }
+  }
+
+  .hero-text > *,
+  .hero-portrait {
     animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
 
-  .hero > :nth-child(2) { animation-delay: 0.08s; }
-  .hero > :nth-child(3) { animation-delay: 0.2s; }
-  .hero > :nth-child(4) { animation-delay: 0.3s; }
-  .hero > :nth-child(5) { animation-delay: 0.42s; }
-  .hero > :nth-child(6) { animation-delay: 0.54s; }
+  .hero-text > :nth-child(2) { animation-delay: 0.08s; }
+  .hero-text > :nth-child(3) { animation-delay: 0.2s; }
+  .hero-text > :nth-child(4) { animation-delay: 0.3s; }
+  .hero-text > :nth-child(5) { animation-delay: 0.42s; }
+  .hero-portrait { animation-delay: 0.25s; }
 
   @keyframes rise {
     from {
@@ -174,64 +216,37 @@ const jsonLd = {
     }
   }
 
-  .mark {
-    position: relative;
-    display: grid;
-    place-items: center;
-    width: clamp(8.5rem, 18vw, 11rem);
-    aspect-ratio: 1;
-  }
-
-  .mark::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border: 1px solid var(--rule-strong);
-    border-radius: 50%;
-    background: radial-gradient(circle, #fff 30%, rgb(255 255 255 / 0.55) 72%);
-  }
-
-  :global(.hero-emblem) {
-    position: relative;
-    width: 78%;
-    margin-top: 3%;
-    filter: drop-shadow(0 0.8rem 1.2rem rgb(8 22 48 / 0.18));
-  }
-
   .eyebrow {
     display: flex;
     align-items: center;
-    gap: 1.1rem;
-    margin-top: clamp(2.25rem, 5vh, 3.25rem);
+    gap: 1rem;
   }
 
-  .eyebrow::before,
-  .eyebrow::after {
+  .eyebrow::before {
     content: "";
-    width: clamp(2rem, 9vw, 5.5rem);
+    width: 2.5rem;
     height: 1px;
     background: var(--rule-strong);
   }
 
   .headline {
-    margin-top: 1.4rem;
-    font: 500 clamp(3.2rem, 8.5vw, 6.25rem) / 1 var(--font-display);
-    letter-spacing: 0.005em;
-    text-wrap: balance;
+    margin-top: 1.25rem;
+    font: 500 clamp(3.4rem, 8.5vw, 6.5rem) / 0.95 var(--font-display);
+    letter-spacing: -0.005em;
     color: var(--ink);
   }
 
   .subtitle {
-    max-width: 44ch;
+    max-width: 30ch;
     margin-top: 1.25rem;
-    font: italic 500 clamp(1.4rem, 2.5vw, 1.95rem) / 1.28 var(--font-display);
+    font: italic 500 clamp(1.45rem, 2.6vw, 2rem) / 1.25 var(--font-display);
     text-wrap: balance;
     color: var(--accent);
   }
 
   .lede {
-    max-width: 60ch;
-    margin-top: 2rem;
+    max-width: 52ch;
+    margin-top: 1.75rem;
     font-size: 1.0625rem;
     line-height: 1.75;
     text-wrap: pretty;
@@ -241,10 +256,68 @@ const jsonLd = {
   .ctas {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 0.9rem;
     margin-top: 2.5rem;
     list-style: none;
+  }
+
+  /* The photo in an arch, a second arch outlined behind it, the lotus in a
+     small round seal on its edge. */
+  .hero-portrait {
+    position: relative;
+    justify-self: center;
+    width: min(100%, 17rem);
+    margin: 0.9rem 0.9rem 0 0;
+  }
+
+  @media (min-width: 56rem) {
+    .hero-portrait {
+      width: min(100%, 22rem);
+      justify-self: end;
+    }
+  }
+
+  .hero-portrait::before {
+    content: "";
+    position: absolute;
+    inset: -0.9rem -0.9rem 0.9rem 0.9rem;
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px 999px 0 0;
+  }
+
+  .arch {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 999px 999px 0 0;
+    background: var(--paper-deep);
+    box-shadow: 0 1.5rem 3rem var(--shadow);
+  }
+
+  .arch :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 38% 50%;
+  }
+
+  .badge {
+    position: absolute;
+    bottom: -1.75rem;
+    left: -1.75rem;
+    display: grid;
+    place-items: center;
+    width: clamp(5rem, 9vw, 6rem);
+    aspect-ratio: 1;
+    border: 1px solid var(--rule-strong);
+    border-radius: 50%;
+    background: var(--paper);
+    box-shadow: 0 0.75rem 1.5rem var(--shadow);
+  }
+
+  :global(.badge-emblem) {
+    width: 66%;
+    margin-top: 6%;
   }
 
   /* About */
@@ -294,12 +367,57 @@ const jsonLd = {
   /* Services */
 
   .services-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    gap: 3rem;
     max-width: 76rem;
     margin-inline: auto;
-    text-align: center;
+  }
+
+  @media (min-width: 60rem) {
+    .services-inner {
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 7vw, 6rem);
+      align-items: center;
+    }
+  }
+
+  .areas {
+    border-top: 1px solid var(--rule-strong);
+    list-style: none;
+  }
+
+  .areas a {
+    display: grid;
+    grid-template-columns: 2.25rem 1fr auto;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1.05rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .number {
+    font: 600 0.75rem / 1 var(--font-sans);
+    letter-spacing: 0.2em;
+    color: var(--accent);
+  }
+
+  .area-title {
+    font: italic 500 1.45rem / 1.2 var(--font-display);
+    color: var(--ink);
+    transition: color 0.2s ease;
+  }
+
+  .arrow {
+    color: var(--accent);
+    transition: transform 0.2s ease;
+  }
+
+  .areas a:hover .area-title {
+    color: var(--accent);
+  }
+
+  .areas a:hover .arrow {
+    transform: translateX(0.25rem);
   }
 
   /* Latest posts */
@@ -369,8 +487,13 @@ const jsonLd = {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero > * {
+    .hero-text > *,
+    .hero-portrait {
       animation: none;
+    }
+
+    .areas a:hover .arrow {
+      transform: none;
     }
   }
 </style>

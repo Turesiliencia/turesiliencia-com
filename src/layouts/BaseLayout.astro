@@ -45,10 +45,34 @@ const ogImageAlt =
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The theme, before anything is drawn: the visitor's choice, else their
+         system's, followed live until they choose (src/styles/theme.css). -->
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        var media = matchMedia("(prefers-color-scheme: dark)");
+        function stored() {
+          try {
+            return localStorage.getItem("theme");
+          } catch (e) {
+            return null;
+          }
+        }
+        function apply() {
+          var theme = stored();
+          root.dataset.theme = theme === "light" || theme === "dark" ? theme : media.matches ? "dark" : "light";
+        }
+        apply();
+        media.addEventListener("change", function () {
+          if (!stored()) apply();
+        });
+      })();
+    </script>
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#f7f4ec" />
+    <meta name="theme-color" content="#f4f0e6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#050d1f" media="(prefers-color-scheme: dark)" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -92,16 +116,14 @@ const ogImageAlt =
     overflow: clip;
   }
 
-  /* Warm light from above, in the book cover's gold. */
+  /* Light from above: gold on paper, the logo's blue on navy. */
   .page::before {
     content: "";
     position: absolute;
     inset: 0 0 auto;
     z-index: -1;
     height: min(120vh, 64rem);
-    background:
-      radial-gradient(ellipse 50% 36% at 50% 18%, rgb(255 255 255 / 0.55), transparent 70%),
-      radial-gradient(ellipse 85% 70% at 50% 0%, rgb(215 186 127 / 0.3), transparent 72%);
+    background: var(--glow);
     pointer-events: none;
   }
 
