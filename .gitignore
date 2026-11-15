@@ -25,4 +25,5 @@ pnpm-debug.log*
 
 # private source material: this repository is public
 refs/
+material/
 .env*

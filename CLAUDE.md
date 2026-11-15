@@ -22,7 +22,7 @@ The site presents her first as a theologian, researcher and speaker on Reconstru
 
 It is live at https://turesiliencia.com since 2026-11-13 (Vercel project `turesiliencia-com` on her account, deployed on every push to `main`). The domain is registered at Vercel with Vercel's nameservers; `www` redirects to the bare domain (308), and https://deissy-olarte.vercel.app still serves the site too. The site's own address (canonical links, link-preview tags, sitemap) comes from `site` in `astro.config.mjs`, which takes Vercel's `VERCEL_PROJECT_PRODUCTION_URL` at build time (the shortest production domain, now `turesiliencia.com`): after changing the project's domains, redeploy. Local builds fall back to `turesiliencia.com`.
 
-Private context (the state of both sites, decisions, her material) is not in this repository. Her material is in `refs/` in this folder, which `.gitignore` excludes; the rest lives one level up, in the folder that holds both sites and is in no repository: `../CLAUDE.md`. Read it before writing content.
+Private context (the state of both sites, decisions) is not in this repository. Her publishable material (logos, the book's cover, back cover, texts and QR codes) is in `material/`, the same files as in the `.org`'s, which `.gitignore` excludes: it stays on Kevin's machine, and a file from it goes public only once prepared and copied into the site; the rest lives one level up, in the folder that holds both sites and is in no repository: `../CLAUDE.md`. Read it before writing content.
 
 ## Commands
 
@@ -78,7 +78,7 @@ The repository `Turesiliencia/turesiliencia-com` is on Deissy's GitHub account a
 
 One branch, `main`: every push to it is a production deployment, and a mistake is undone with another push. Run `npm run build` first where the machine allows it; otherwise check the deployment after the push. Kevin reviews before anything is published and says when to push.
 
-The bar for anything committed: if Deissy has not already published it, it does not go in. Never commit `.env*`, nor anything copied from the private material (`refs/` here, `../CLAUDE.md`), except what she has published or asked to publish (`../CLAUDE.md` says which). `.env*` and `refs/` are gitignored: never force-add them. Images: cleared for publication, metadata stripped.
+The bar for anything committed: if Deissy has not already published it, it does not go in. Never commit `.env*`, nor anything copied from the private context (`../CLAUDE.md`), except what she has published or asked to publish (`../CLAUDE.md` says which). `.env*` and `refs/` are gitignored: never force-add them. Images: cleared for publication, metadata stripped.
 
 Before each commit, look at `git status`, add files by name, then:
 
