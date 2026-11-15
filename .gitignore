@@ -23,7 +23,6 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# private notes and source material: this repository is public
-CLAUDE.local.md
+# private source material: this repository is public
 refs/
 .env*
