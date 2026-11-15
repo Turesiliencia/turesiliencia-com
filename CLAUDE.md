@@ -6,22 +6,22 @@
 
 Deissy Olarte's personal site, at https://turesiliencia.com. The association TuResiliencia has its own site at https://www.turesiliencia.org, in the sibling repository `../turesiliencia-org` (`Turesiliencia/web`): keep the two apart. This one is in her first-person voice; the `.org` speaks for the association.
 
-It is a static Astro site in Spanish, rebuilt from her old WordPress site (gone since 2026-11-13). Its pages:
+It is a static Astro site in Spanish. Its pages:
 
 | Address        | File                         | What it is                                                                       |
 | -------------- | ---------------------------- | -------------------------------------------------------------------------------- |
 | `/`            | `src/pages/index.astro`      | Home: hero, about her, her six areas, the three latest posts, the book, contact  |
 | `/mihistoria/` | `src/pages/mihistoria.astro` | Her story, education, the 2025 award (video in `public/video/`) and an interview |
 | `/servicios/`  | `src/pages/servicios.astro`  | The six areas she works in, online sessions, prices (`#tarifas`), how to book    |
-| `/miblog/`     | `src/pages/miblog/`          | Every published post, newest first (the same address as on WordPress)            |
-| `/<slug>/`     | `src/pages/[slug].astro`     | A post, at the address it had on WordPress, then three more and the book         |
+| `/miblog/`     | `src/pages/miblog/`          | Every published post, newest first                                               |
+| `/<slug>/`     | `src/pages/[slug].astro`     | A post, then three more and the book                                             |
 | anything else  | `src/pages/404.astro`        | Not found, with links home and to the blog                                       |
 
-Her old pages are rebuilt from her own wording (`../refs/com/markdown-paginas/`), corrected and in the first person: Mi historia at its old address, and Temarios, Tu videoconferencia and Tarifas merged into `/servicios/`, their old addresses redirecting there (`vercel.json`, with and without the slash). The six areas are `areas` in `src/content/services.ts`. The blog posts come from Sanity (below); everything else is in the code. The session prices and the PayPal link are `sessions` in `src/content/site.ts`. Her contact details and the book's Amazon links are in the same file, the same as the `.org`'s (`src/content/site.ts` and `src/content/book.ts` there): change both sites together. `../CLAUDE.md` lists everything the two share. It is indexable, unlike the `.org`, with a sitemap (`@astrojs/sitemap`) and `public/robots.txt`.
+Mi historia and Servicios are her own wording, corrected and in the first person. `/temarios/`, `/tarifas/` and `/tuvideoconferencia/` redirect to `/servicios/` (`vercel.json`, with and without the slash): links to them are already shared, so keep the redirects, and keep every post's address. The six areas are `areas` in `src/content/services.ts`. The blog posts come from Sanity (below); everything else is in the code. The session prices and the PayPal link are `sessions` in `src/content/site.ts`. Her contact details and the book's Amazon links are in the same file, the same as the `.org`'s (`src/content/site.ts` and `src/content/book.ts` there): change both sites together. `../CLAUDE.md` lists everything the two share. It is indexable, unlike the `.org`, with a sitemap (`@astrojs/sitemap`) and `public/robots.txt`.
 
 It is live at https://turesiliencia.com since 2026-11-13 (Vercel project `turesiliencia-com` on her account, deployed on every push to `main`). The domain is registered at Vercel with Vercel's nameservers; `www` redirects to the bare domain (308), and https://deissy-olarte.vercel.app still serves the site too. The site's own address (canonical links, link-preview tags, sitemap) comes from `site` in `astro.config.mjs`, which takes Vercel's `VERCEL_PROJECT_PRODUCTION_URL` at build time (the shortest production domain, now `turesiliencia.com`): after changing the project's domains, redeploy. Local builds fall back to `turesiliencia.com`.
 
-Private context (the state of both sites, decisions, her material, the backup of the old site) is not in this repository. It lives one level up, in the folder that holds both sites and is in no repository: `../CLAUDE.md`, `../CLAUDE.local.md` and `../refs/` (her old site's posts and pages as Markdown are in `../refs/com/`; how the site left WordPress is in `../CLAUDE.local.md`). Read `../CLAUDE.local.md` before writing content.
+Private context (the state of both sites, decisions, her material) is not in this repository. It lives one level up, in the folder that holds both sites and is in no repository: `../CLAUDE.md`, `../CLAUDE.local.md` and `../refs/`. Read `../CLAUDE.local.md` before writing content.
 
 ## Commands
 
@@ -50,11 +50,10 @@ Stop the preview server afterwards (`npx astro preview stop`, or by its PID from
 - **The body** is Portable Text, turned into HTML by `src/lib/portable-text.ts` (`@portabletext/to-html`, which escapes the text; the image and YouTube blocks escape what they use). Its styles are under `.prose` in `src/pages/[slug].astro`.
 - **Images** are served from Sanity's CDN in several widths (`imageAttrs` in `src/lib/sanity.ts`); cards crop to 3:2 following the hotspot set in the Studio. A post's link preview is its cover cropped to 1200×630 JPEG; pages without one use `public/social-card-book.png`.
 - **Excerpts**: the post's own, or else its first paragraphs cut at about 180 characters.
-- **The import from WordPress** (2026-11-14) is `studio/scripts/import-wordpress-posts.ts`, run once with `npx sanity exec … --with-user-token` from the Markdown in `../refs/com/markdown-blog/`. It writes fixed ids (`post-<slug>`, `drafts.post-<slug>`), so running it again replaces the posts, including any edits made in the Studio since.
 
 ## How it is built
 
-- Static Astro, no adapter: Vercel detects it and serves `dist/`. `trailingSlash: "always"` in Astro and `vercel.json` keeps WordPress's addresses (`/<slug>/`); Vercel redirects the address without the slash.
+- Static Astro, no adapter: Vercel detects it and serves `dist/`. `trailingSlash: "always"` in Astro and `vercel.json` keeps the posts' addresses (`/<slug>/`); Vercel redirects the address without the slash.
 - **Layout**: `src/layouts/BaseLayout.astro` (head, link-preview tags, JSON-LD, header, footer). Header and footer (`SiteHeader`, `SiteFooter`) are ported from the `.org`'s; their links are `nav` in `src/content/site.ts`.
 - **Fonts, colours and themes are the `.org`'s**: Cormorant Garamond and Montserrat through Astro's fonts API (`astro.config.mjs`, downloaded at build time and self-hosted). The colours are in `src/styles/theme.css`, **the same file as the `.org`'s `src/app/theme.css`: change both together**. It holds the palette (navy and blues from the logo, gold and cream from the book cover) and the roles styles use instead of it (`--paper`, `--ink`, `--ink-soft`, `--accent`, `--rule`, `--band`, `--glow`, `--button-*`…; the lotus and the video frame are the only direct palette uses), each with a light and a dark value. Light is the default: warm paper `#f4f0e6`, soft navy ink `#1a2844`, a deeper gold `#765c27` (5.5:1). Dark is the `.org`'s navy, cream and gold. Dark applies when the visitor picks it, when their system is dark and they haven't picked, and inside any `.dark` band: the footer on both sites, and here the book section too.
 - **Choosing the theme**: an inline script at the top of `BaseLayout.astro`'s head sets `data-theme` on `<html>` before anything is drawn (the saved choice in `localStorage.theme`, else the system's, followed live until the visitor picks). `src/components/ThemeToggle.astro`, in the header, is a toggle button ("Tema oscuro", `aria-pressed` in dark) that switches and saves it; `theme.css` hides it until the script has run. Without JavaScript the system's theme still applies, through the media query. `theme-color` has one value per system theme.
