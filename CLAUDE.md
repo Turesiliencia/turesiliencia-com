@@ -21,7 +21,7 @@ Her old pages are rebuilt from her own wording (`../refs/com/markdown-paginas/`)
 
 It is live at https://turesiliencia.com since 2026-11-13 (Vercel project `turesiliencia-com` on her account, deployed on every push to `main`). The domain is registered at Vercel with Vercel's nameservers; `www` redirects to the bare domain (308), and https://deissy-olarte.vercel.app still serves the site too. The site's own address (canonical links, link-preview tags, sitemap) comes from `site` in `astro.config.mjs`, which takes Vercel's `VERCEL_PROJECT_PRODUCTION_URL` at build time (the shortest production domain, now `turesiliencia.com`): after changing the project's domains, redeploy. Local builds fall back to `turesiliencia.com`.
 
-Private context (the state of both sites, decisions, her material, the backup of the old site) is not in this repository. It lives one level up, in the folder that holds both sites and is in no repository: `../CLAUDE.md`, `../CLAUDE.local.md`, `../notes/` and `../refs/` (her old site's posts and pages as Markdown are in `../refs/com/`; how the site left WordPress is `../notes/com-migration.md`). Read `../CLAUDE.local.md` before writing content.
+Private context (the state of both sites, decisions, her material, the backup of the old site) is not in this repository. It lives one level up, in the folder that holds both sites and is in no repository: `../CLAUDE.md`, `../CLAUDE.local.md` and `../refs/` (her old site's posts and pages as Markdown are in `../refs/com/`; how the site left WordPress is in `../CLAUDE.local.md`). Read `../CLAUDE.local.md` before writing content.
 
 ## Commands
 
@@ -70,7 +70,7 @@ The repository `Turesiliencia/turesiliencia-com` is on Deissy's GitHub account a
 
 Every push to `main` is a production deployment: run `npm run build` first. Kevin reviews before anything is published and says when to push.
 
-The bar for anything committed: if Deissy has not already published it, it does not go in. Never commit `.env*`, nor anything copied from the private material one level up (`../CLAUDE.local.md`, `../notes/`, `../refs/`), except what she has published or asked to publish (`../notes/refs.md` says which). `refs/` and `CLAUDE.local.md` are gitignored here too, in case a copy ever lands in this folder. Images: cleared for publication, metadata stripped.
+The bar for anything committed: if Deissy has not already published it, it does not go in. Never commit `.env*`, nor anything copied from the private material one level up (`../CLAUDE.local.md`, `../refs/`), except what she has published or asked to publish (`../CLAUDE.local.md` says which). `refs/` and `CLAUDE.local.md` are gitignored here too, in case a copy ever lands in this folder. Images: cleared for publication, metadata stripped.
 
 Before each commit, look at `git status`, add files by name, then:
 
