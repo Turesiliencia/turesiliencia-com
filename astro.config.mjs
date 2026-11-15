@@ -15,14 +15,15 @@ export default defineConfig({
   // Posts keep the addresses they had on WordPress, which end in a slash.
   trailingSlash: "always",
   integrations: [sitemap()],
-  // Same typefaces as turesiliencia.org, downloaded at build time and served
-  // from the site itself.
+  // Downloaded at build time and served from the site itself. Fraunces for
+  // display is hers (the .org's is Cormorant Garamond); Montserrat for text is
+  // the logo's typeface, shared with the .org.
   fonts: [
     {
       provider: fontProviders.google(),
-      name: "Cormorant Garamond",
-      cssVariable: "--font-cormorant",
-      weights: [500, 600],
+      name: "Fraunces",
+      cssVariable: "--font-fraunces",
+      weights: [400, 500, 600],
       styles: ["normal", "italic"],
       subsets: ["latin"],
       fallbacks: ["Georgia", "serif"],

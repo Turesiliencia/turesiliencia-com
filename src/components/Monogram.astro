@@ -1,0 +1,27 @@
+---
+// Her initials in a round seal: this site's mark, where the .org shows the
+// association's lotus. Drawn in the button colours, so it follows the theme.
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<span class:list={["monogram", className]} aria-hidden="true">DO</span>
+
+<style>
+  .monogram {
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    width: 2.5rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--button-bg);
+    color: var(--button-ink);
+    font: italic 400 1.05rem / 1 var(--font-display);
+    letter-spacing: -0.02em;
+    /* Optical centre: the italic leans right. */
+    padding-right: 0.08em;
+  }
+</style>

@@ -1,102 +1,97 @@
-/* Colours and themes. This file is the same on turesiliencia.org and
-   turesiliencia.com (src/app/theme.css there, src/styles/theme.css here):
-   change both together.
+/* Colours and themes: hers, not the association's. turesiliencia.org wears
+   the blue of the logo (navy, its own theme.css); this site wears the colours
+   of her book's cover: its forest green, a warm terracotta, and its gold kept
+   for small details, the family's thread between the two sites.
 
-   The palette: navy and blues from the logo, gold and cream from the book
-   cover. Styles never use it directly, only the roles below, which take one
+   Styles never use the palette directly, only the roles below, which take one
    value in the light theme and another in the dark one.
 
    Light is the default. Dark applies when the visitor chooses it (the header's
    button sets data-theme on <html> and remembers it), when their system is dark
-   and they have not chosen, and always inside a `.dark` band (the footer).
-
-   The light theme below is turesiliencia.com's warm paper and gold. The .org
-   lays its own over it in src/app/globals.css: cool white paper, the logo's
-   blue for labels and links, gold kept for details. The dark theme is shared. */
+   and they have not chosen, and always inside a `.dark` band (the book, the
+   footer). */
 
 :root {
-  --navy-950: #050d1f;
-  --navy-900: #081630;
-  --blue-700: #003380;
+  --green-950: #111b15;
+  --green-900: #1a281f;
+  --green-800: #2b3f31;
+  --green-700: #3b5444;
+  --clay-600: #9a4428;
+  --clay-300: #e3a07a;
   --gold-300: #d7ba7f;
-  --cream: #ece9dc;
-  --mist: #a9b4cb;
+  --cream: #f3ecdd;
+  --sage: #b4bdb0;
 }
 
-/* Light: warm paper rather than white, ink a soft navy rather than black. */
+/* Light: warm ivory paper, ink a deep green rather than black, terracotta for
+   labels and links. */
 :root {
-  --paper: #f4f0e6;
-  --paper-deep: #ebe4d3;
-  --ink: #1a2844;
-  --ink-soft: #4b5670;
-  --accent: #765c27;
-  --accent-hover: #57431a;
-  --rule: rgb(118 92 39 / 0.2);
-  --rule-strong: rgb(118 92 39 / 0.42);
-  --band: linear-gradient(180deg, var(--paper-deep), rgb(235 228 211 / 0));
+  --paper: #f5f1e8;
+  --paper-deep: #e9e4d4;
+  --ink: #1d2a22;
+  --ink-soft: #4d5a51;
+  --accent: var(--clay-600);
+  --accent-hover: #74311c;
+  --detail: #765c27;
+  --rule: rgb(43 63 49 / 0.16);
+  --rule-strong: rgb(43 63 49 / 0.34);
   --glow:
-    radial-gradient(ellipse 50% 36% at 50% 18%, rgb(255 255 255 / 0.5), transparent 70%),
-    radial-gradient(ellipse 85% 70% at 50% 0%, rgb(215 186 127 / 0.28), transparent 72%);
-  --header-bg: rgb(244 240 230 / 0.88);
-  --medallion: radial-gradient(circle, #fff 30%, rgb(255 255 255 / 0.55) 72%);
-  --headline-fill: linear-gradient(180deg, #8f7232 0%, #765c27 55%, #5e481d 100%);
-  --shadow: rgb(26 40 68 / 0.18);
-  --button-bg: var(--navy-900);
+    radial-gradient(ellipse 42% 40% at 85% 12%, rgb(227 160 122 / 0.22), transparent 70%),
+    radial-gradient(ellipse 70% 60% at 30% 0%, rgb(215 186 127 / 0.18), transparent 72%);
+  --header-bg: rgb(245 241 232 / 0.88);
+  --shadow: rgb(29 42 34 / 0.2);
+  --button-bg: var(--green-800);
   --button-ink: var(--cream);
-  --button-hover: var(--blue-700);
+  --button-hover: var(--green-700);
 
   color-scheme: light;
 }
 
-/* Dark: the navy page, cream text and gold of the book cover. The two blocks
+/* Dark: the cover's deep green, cream text, apricot accents. The two blocks
    below hold the same values: plain CSS can't share them between a selector
    and a media query. */
 :root[data-theme="dark"],
 .dark {
-  --paper: var(--navy-950);
-  --paper-deep: var(--navy-900);
+  --paper: var(--green-950);
+  --paper-deep: var(--green-900);
   --ink: var(--cream);
-  --ink-soft: var(--mist);
-  --accent: var(--gold-300);
-  --accent-hover: #ecd9ac;
-  --rule: rgb(215 186 127 / 0.2);
-  --rule-strong: rgb(215 186 127 / 0.45);
-  --band: linear-gradient(180deg, rgb(8 22 48 / 0.7), rgb(8 22 48 / 0));
+  --ink-soft: var(--sage);
+  --accent: var(--clay-300);
+  --accent-hover: #f0bf9f;
+  --detail: var(--gold-300);
+  --rule: rgb(227 160 122 / 0.18);
+  --rule-strong: rgb(227 160 122 / 0.4);
   --glow:
-    radial-gradient(ellipse 46% 34% at 50% 18%, rgb(0 102 255 / 0.16), transparent 70%),
-    radial-gradient(ellipse 85% 70% at 50% 0%, rgb(0 51 128 / 0.6), transparent 72%);
-  --header-bg: rgb(5 13 31 / 0.86);
-  --medallion: radial-gradient(circle, rgb(5 13 31 / 0.55), rgb(5 13 31 / 0.15) 70%);
-  --headline-fill: linear-gradient(180deg, #ecd9ac 0%, #d7ba7f 48%, #b9975a 100%);
+    radial-gradient(ellipse 42% 40% at 85% 12%, rgb(227 160 122 / 0.1), transparent 70%),
+    radial-gradient(ellipse 70% 60% at 30% 0%, rgb(59 84 68 / 0.55), transparent 72%);
+  --header-bg: rgb(17 27 21 / 0.86);
   --shadow: rgb(0 0 0 / 0.45);
-  --button-bg: var(--gold-300);
-  --button-ink: var(--navy-950);
-  --button-hover: #e6cf9c;
+  --button-bg: var(--clay-300);
+  --button-ink: var(--green-950);
+  --button-hover: #f0bf9f;
 
   color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: var(--navy-950);
-    --paper-deep: var(--navy-900);
+    --paper: var(--green-950);
+    --paper-deep: var(--green-900);
     --ink: var(--cream);
-    --ink-soft: var(--mist);
-    --accent: var(--gold-300);
-    --accent-hover: #ecd9ac;
-    --rule: rgb(215 186 127 / 0.2);
-    --rule-strong: rgb(215 186 127 / 0.45);
-    --band: linear-gradient(180deg, rgb(8 22 48 / 0.7), rgb(8 22 48 / 0));
+    --ink-soft: var(--sage);
+    --accent: var(--clay-300);
+    --accent-hover: #f0bf9f;
+    --detail: var(--gold-300);
+    --rule: rgb(227 160 122 / 0.18);
+    --rule-strong: rgb(227 160 122 / 0.4);
     --glow:
-      radial-gradient(ellipse 46% 34% at 50% 18%, rgb(0 102 255 / 0.16), transparent 70%),
-      radial-gradient(ellipse 85% 70% at 50% 0%, rgb(0 51 128 / 0.6), transparent 72%);
-    --header-bg: rgb(5 13 31 / 0.86);
-    --medallion: radial-gradient(circle, rgb(5 13 31 / 0.55), rgb(5 13 31 / 0.15) 70%);
-    --headline-fill: linear-gradient(180deg, #ecd9ac 0%, #d7ba7f 48%, #b9975a 100%);
+      radial-gradient(ellipse 42% 40% at 85% 12%, rgb(227 160 122 / 0.1), transparent 70%),
+      radial-gradient(ellipse 70% 60% at 30% 0%, rgb(59 84 68 / 0.55), transparent 72%);
+    --header-bg: rgb(17 27 21 / 0.86);
     --shadow: rgb(0 0 0 / 0.45);
-    --button-bg: var(--gold-300);
-    --button-ink: var(--navy-950);
-    --button-hover: #e6cf9c;
+    --button-bg: var(--clay-300);
+    --button-ink: var(--green-950);
+    --button-hover: #f0bf9f;
 
     color-scheme: dark;
   }

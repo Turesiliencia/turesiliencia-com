@@ -1,5 +1,6 @@
 ---
 import LogoEmblem from "./LogoEmblem.astro";
+import Monogram from "./Monogram.astro";
 import { nav, site } from "../content/site";
 ---
 
@@ -7,7 +8,7 @@ import { nav, site } from "../content/site";
   <div class="inner">
     <div class="about">
       <a href="/" class="brand">
-        <LogoEmblem class="footer-emblem" id="lotus-footer" />
+        <Monogram class="footer-monogram" />
         <span>{site.name}</span>
       </a>
       <p class="tagline">Reconstrucción Humana</p>
@@ -31,7 +32,12 @@ import { nav, site } from "../content/site";
     <div class="column">
       <h2>La asociación</h2>
       <ul>
-        <li><a href={site.association.url}>{site.association.name}</a></li>
+        <li>
+          <a href={site.association.url} class="association">
+            <LogoEmblem class="association-emblem" id="lotus-footer" />
+            {site.association.name}
+          </a>
+        </li>
       </ul>
     </div>
   </div>
@@ -40,7 +46,8 @@ import { nav, site } from "../content/site";
 </footer>
 
 <style>
-  /* Rounded at the top, like the panels: the .org's footer is square. */
+  /* Rounded at the top, like the panels, and in the book's green: the .org's
+     footer is square and navy. */
   .footer {
     border-top: 1px solid var(--rule);
     border-radius: clamp(1.5rem, 3.5vw, 2.75rem) clamp(1.5rem, 3.5vw, 2.75rem) 0 0;
@@ -80,21 +87,36 @@ import { nav, site } from "../content/site";
     align-items: center;
     gap: 0.75rem;
     color: var(--ink);
-    font: 600 1.75rem / 1 var(--font-display);
+    font: 400 1.75rem / 1 var(--font-display);
+    letter-spacing: -0.01em;
   }
 
-  :global(.footer-emblem) {
+  :global(.footer-monogram) {
     width: 3rem;
+    font-size: 1.25rem;
+  }
+
+  /* The association's lotus, small, beside its name: the one place it
+     appears here, as the link between the two sites. */
+  .association {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  :global(.association-emblem) {
+    flex: none;
+    width: 1.6rem;
   }
 
   .tagline {
     margin-top: 1.25rem;
-    font: italic 500 1.35rem / 1.3 var(--font-display);
+    font: italic 400 1.35rem / 1.3 var(--font-display);
     color: var(--ink);
   }
 
   .column h2 {
-    font: italic 500 1.25rem / 1.3 var(--font-display);
+    font: italic 400 1.25rem / 1.3 var(--font-display);
     color: var(--accent);
   }
 

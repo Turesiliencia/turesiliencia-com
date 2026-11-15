@@ -71,8 +71,8 @@ const ogImageAlt =
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#f4f0e6" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#050d1f" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f1e8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#111b15" media="(prefers-color-scheme: dark)" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -92,7 +92,7 @@ const ogImageAlt =
     <meta name="twitter:card" content="summary_large_image" />
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
 
-    <Font cssVariable="--font-cormorant" preload />
+    <Font cssVariable="--font-fraunces" preload />
     <Font cssVariable="--font-montserrat" preload />
   </head>
   <body>
@@ -116,7 +116,8 @@ const ogImageAlt =
     overflow: clip;
   }
 
-  /* Light from above: gold on paper, the logo's blue on navy. */
+  /* Warm light from the top right: terracotta and gold on paper, green in the
+     dark theme. */
   .page::before {
     content: "";
     position: absolute;

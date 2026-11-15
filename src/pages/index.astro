@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import AmazonIcon from "../components/AmazonIcon.astro";
 import BookSection from "../components/BookSection.astro";
 import PostCard from "../components/PostCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -6,6 +8,7 @@ import { areas } from "../content/services";
 import { book, site } from "../content/site";
 import { talks } from "../content/talks";
 import { getPosts } from "../lib/sanity";
+import cover from "../assets/sobrevivir-no-es-reconstruirse.jpg";
 
 const latest = (await getPosts()).slice(0, 3);
 
@@ -27,7 +30,7 @@ const jsonLd = {
   <section class="hero">
     <div class="hero-text">
       <p class="eyebrow label">Hola, soy</p>
-      <h1 class="headline">Deissy Olarte</h1>
+      <h1 class="headline"><span>Deissy</span> <em>Olarte</em></h1>
       <p class="subtitle">Teóloga, investigadora y conferencista internacional</p>
       <p class="lede">
         <strong>Reconstrucción Humana:</strong> pensamiento y herramientas para comprender las transiciones que
@@ -41,6 +44,28 @@ const jsonLd = {
         <li><a class="button-primary" href="/conferencias/#propuesta">Invítame a tu evento</a></li>
         <li><a class="button-secondary" href="/conferencias/">Conoce mis conferencias</a></li>
       </ul>
+    </div>
+
+    <div class="hero-art">
+      <!-- The book is decoration: the text names it and its section follows. -->
+      <div class="book3d" aria-hidden="true">
+        <div class="book3d-body">
+          <span class="book3d-back"></span>
+          <span class="book3d-pages"></span>
+          <Image
+            class="hero-cover"
+            src={cover}
+            alt=""
+            widths={[240, 360, 480, 640]}
+            sizes="(min-width: 60rem) 16rem, 12rem"
+            loading="eager"
+          />
+        </div>
+      </div>
+      <a class="store-badge" href={book.amazonUrl} rel="noopener">
+        <AmazonIcon class="store-badge-icon" />
+        <span><small>Disponible en</small> Amazon</span>
+      </a>
     </div>
   </section>
 
@@ -206,62 +231,154 @@ const jsonLd = {
 
 <style>
   /* Hero: hers, not the association's. The .org opens on a navy band, its
-     lotus medallion centred over gold capitals; here, on warm paper, she
-     greets the visitor and the text is set to the left, her name in ink and
-     in mixed case, over a quiet pattern: fine rings spreading like ripples
-     around a lotus on water, off to the right, fading out before the text. */
+     lotus medallion centred over gold capitals, square and symmetrical; here,
+     on warm paper, she greets the visitor, her name set large on two lines,
+     and beside it her book, standing on the page as a real paperback, with a
+     store badge at its foot. */
 
   .hero {
-    position: relative;
-    isolation: isolate;
-    padding: clamp(4rem, 12vh, 8rem) var(--gutter) clamp(5rem, 13vh, 8.5rem);
+    display: grid;
+    gap: 3.5rem;
+    max-width: calc(76rem + 2 * var(--gutter));
+    margin-inline: auto;
+    padding: clamp(3.5rem, 10vh, 6.5rem) var(--gutter) clamp(4.5rem, 12vh, 7.5rem);
   }
 
-  .hero::before {
-    /* Where the rings spread from, how far they reach, and a second fade
-       that keeps them out from behind the text. */
-    --centre: 82% 45%;
-    --reach: min(34rem, 40vw);
-    --clear: linear-gradient(to right, transparent 38%, #000 68%);
-    /* No rule under the hero: the rings fade out before its foot. */
-    --foot: linear-gradient(to bottom, #000 70%, transparent);
-
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: repeating-radial-gradient(
-      circle at var(--centre),
-      transparent 0 2.75rem,
-      var(--rule-strong) 2.75rem calc(2.75rem + 1px),
-      transparent calc(2.75rem + 1px) 2.875rem
-    );
-    -webkit-mask-image:
-      radial-gradient(circle at var(--centre), #000 0, rgb(0 0 0 / 0.55) 40%, transparent var(--reach)),
-      var(--clear),
-      var(--foot);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      radial-gradient(circle at var(--centre), #000 0, rgb(0 0 0 / 0.55) 40%, transparent var(--reach)),
-      var(--clear),
-      var(--foot);
-    mask-composite: intersect;
-    pointer-events: none;
-  }
-
-  /* On a phone the text takes the width: the rings move to the top right
-     corner and fade out above the paragraph. */
-  @media (max-width: 47.99rem) {
-    .hero::before {
-      --centre: 100% 0%;
-      --reach: 18rem;
-      --clear: linear-gradient(to bottom, #000 0, transparent 15rem);
+  @media (min-width: 60rem) {
+    .hero {
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+      align-items: center;
+      gap: clamp(3rem, 6vw, 6rem);
     }
   }
 
-  .hero-text {
-    max-width: 76rem;
+  .hero-art {
+    position: relative;
+    width: min(13rem, 62%);
     margin-inline: auto;
+  }
+
+  @media (min-width: 60rem) {
+    .hero-art {
+      width: 16rem;
+      margin-right: clamp(0rem, 4vw, 4rem);
+    }
+  }
+
+  /* The paperback standing on the page, turned a little to show its fore
+     edge: the cover in front, the pages along its right side, the back
+     behind, and its shadow on the paper. */
+  .book3d {
+    --thick: 1.6rem;
+
+    position: relative;
+    perspective: 1000px;
+  }
+
+  .book3d::after {
+    content: "";
+    position: absolute;
+    left: 4%;
+    right: -6%;
+    bottom: -1.4rem;
+    z-index: -1;
+    height: 2.4rem;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, var(--shadow), transparent);
+    filter: blur(4px);
+  }
+
+  .book3d-body {
+    position: relative;
+    aspect-ratio: 2 / 3;
+    transform-style: preserve-3d;
+    transform: rotateY(-30deg) rotateX(2deg);
+  }
+
+  :global(.hero-cover),
+  .book3d-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 0.15rem 0.3rem 0.3rem 0.15rem;
+  }
+
+  :global(.hero-cover) {
+    width: 100%;
+    height: 100%;
+    transform: translateZ(calc(var(--thick) / 2));
+    box-shadow: inset 0.35rem 0 0.4rem -0.2rem rgb(0 0 0 / 0.35);
+  }
+
+  .book3d-back {
+    background: #323f34;
+    transform: translateZ(calc(var(--thick) / -2));
+    box-shadow: 1.5rem 1.5rem 2.5rem -0.5rem var(--shadow);
+  }
+
+  .book3d-pages {
+    position: absolute;
+    top: 0.25rem;
+    bottom: 0.25rem;
+    left: calc(100% - var(--thick) / 2);
+    width: var(--thick);
+    background:
+      repeating-linear-gradient(90deg, rgb(0 0 0 / 0.06) 0 1px, transparent 1px 3px),
+      linear-gradient(90deg, #e8e0cc, #f6f1e4 50%, #e3dac4);
+    transform: rotateY(90deg) translateZ(-0.12rem);
+  }
+
+  /* A store badge, black like Amazon's own, astride the book's foot; it
+     fades in once the page has settled and goes to the paperback. */
+  .store-badge {
+    position: absolute;
+    bottom: -2rem;
+    left: -2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 1.05rem 0.55rem 0.8rem;
+    border: 1px solid rgb(255 255 255 / 0.22);
+    border-radius: 0.6rem;
+    background: #0f1111;
+    box-shadow: 0 0.75rem 1.5rem -0.75rem rgb(0 0 0 / 0.5);
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    animation: badge-in 0.9s 1.1s ease-out both;
+    transition: background-color 0.2s ease;
+  }
+
+  .store-badge:hover {
+    background: #232f3e;
+  }
+
+  .store-badge small {
+    display: block;
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    opacity: 0.85;
+  }
+
+  :global(.store-badge-icon) {
+    flex: none;
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  @keyframes badge-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.4rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .store-badge {
+      animation: none;
+    }
   }
 
   .hero-text > * {
@@ -296,15 +413,27 @@ const jsonLd = {
 
   .headline {
     margin-top: 1.25rem;
-    font: 500 clamp(3.4rem, 8.5vw, 6.5rem) / 0.95 var(--font-display);
-    letter-spacing: -0.005em;
+    font: 400 clamp(3.6rem, 9.5vw, 7.25rem) / 0.92 var(--font-display);
+    letter-spacing: -0.03em;
     color: var(--ink);
+  }
+
+  .headline span,
+  .headline em {
+    display: block;
+  }
+
+  /* Her surname in italic, set in from the left like a second hand. */
+  .headline em {
+    padding-left: 0.6em;
+    font-style: italic;
+    color: var(--accent);
   }
 
   .subtitle {
     max-width: 30ch;
     margin-top: 1.25rem;
-    font: italic 500 clamp(1.45rem, 2.6vw, 2rem) / 1.25 var(--font-display);
+    font: italic 400 clamp(1.45rem, 2.6vw, 2rem) / 1.25 var(--font-display);
     text-wrap: balance;
     color: var(--accent);
   }
@@ -366,7 +495,7 @@ const jsonLd = {
   }
 
   .pillars dt {
-    font: italic 500 1.75rem / 1.1 var(--font-display);
+    font: italic 400 1.75rem / 1.1 var(--font-display);
     color: var(--accent);
   }
 
@@ -381,7 +510,7 @@ const jsonLd = {
   /* Her name at the end of "Sobre mí", like a signature under a letter. */
   .signature {
     margin-top: 1.5rem;
-    font: italic 500 2.75rem / 1 var(--font-display);
+    font: italic 400 2.75rem / 1 var(--font-display);
     color: var(--accent);
     transform: rotate(-3deg);
     transform-origin: left center;
@@ -425,11 +554,11 @@ const jsonLd = {
   .number {
     font: 600 0.75rem / 1 var(--font-sans);
     letter-spacing: 0.2em;
-    color: var(--accent);
+    color: var(--detail);
   }
 
   .area-title {
-    font: italic 500 1.45rem / 1.2 var(--font-display);
+    font: italic 400 1.45rem / 1.2 var(--font-display);
     color: var(--ink);
     transition: color 0.2s ease;
   }
@@ -492,7 +621,7 @@ const jsonLd = {
 
   .contact h2 {
     margin-top: 1rem;
-    font: italic 500 clamp(2rem, 4vw, 2.75rem) / 1.15 var(--font-display);
+    font: italic 400 clamp(2rem, 4vw, 2.75rem) / 1.15 var(--font-display);
     color: var(--ink);
   }
 
