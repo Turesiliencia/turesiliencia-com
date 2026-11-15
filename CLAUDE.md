@@ -31,7 +31,7 @@ npm run build    # static build into dist/ (fetches the posts from Sanity)
 npm run preview  # serve the build
 ```
 
-Astro 7 wants Node 22.23 or later; `.nvmrc` pins 24, as Vercel builds with: run `nvm use` first where the default Node is older. No test runner, no linter.
+Node 26: `engines.node` in `package.json` is `26.x`, which is also what Vercel builds with (it overrides the project's setting), and `.nvmrc` pins the same for `nvm use`. No test runner, no linter.
 
 To look at a page without a browser, serve the build (`npx astro preview --port 3458`) and screenshot it with headless Chrome at a desktop and a phone width. Pages are longer than a screen: use a tall window (about 4300 px at 1440 wide, 7600 px at 390 for the home page):
 
