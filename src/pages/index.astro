@@ -23,7 +23,7 @@ const jsonLd = {
 <BaseLayout jsonLd={jsonLd}>
   <section class="hero">
     <div class="hero-text">
-      <p class="eyebrow label">TuResiliencia</p>
+      <p class="eyebrow label">Hola, soy</p>
       <h1 class="headline">Deissy Olarte</h1>
       <p class="subtitle">Duelo migratorio, pérdida y transiciones vitales</p>
       <p class="lede">
@@ -52,6 +52,7 @@ const jsonLd = {
           <a href={site.association.url}>{site.association.name}</a>, que lleva la Reconstrucción Humana a la
           formación, la investigación y la cooperación con universidades, empresas e instituciones.
         </p>
+        <p class="signature">Deissy</p>
         <p class="more">
           <a class="arrow-link" href="/mihistoria/">
             Mi historia <span aria-hidden="true">→</span>
@@ -81,7 +82,7 @@ const jsonLd = {
     </div>
   </section>
 
-  <section id="servicios" class="services section" aria-labelledby="services-title">
+  <section id="servicios" class="services section panel" aria-labelledby="services-title">
     <div class="services-inner">
       <div>
         <p class="label">Cómo te acompaño</p>
@@ -162,8 +163,9 @@ const jsonLd = {
 </BaseLayout>
 
 <style>
-  /* Hero: hers, not the association's. The .org centres its lotus medallion
-     over gold capitals; here the text is set to the left, her name in ink and
+  /* Hero: hers, not the association's. The .org opens on a navy band, its
+     lotus medallion centred over gold capitals; here, on warm paper, she
+     greets the visitor and the text is set to the left, her name in ink and
      in mixed case, over a quiet pattern: fine rings spreading like ripples
      around a lotus on water, off to the right, fading out before the text. */
 
@@ -179,6 +181,8 @@ const jsonLd = {
     --centre: 82% 45%;
     --reach: min(34rem, 40vw);
     --clear: linear-gradient(to right, transparent 38%, #000 68%);
+    /* No rule under the hero: the rings fade out before its foot. */
+    --foot: linear-gradient(to bottom, #000 70%, transparent);
 
     content: "";
     position: absolute;
@@ -192,11 +196,13 @@ const jsonLd = {
     );
     -webkit-mask-image:
       radial-gradient(circle at var(--centre), #000 0, rgb(0 0 0 / 0.55) 40%, transparent var(--reach)),
-      var(--clear);
+      var(--clear),
+      var(--foot);
     -webkit-mask-composite: source-in;
     mask-image:
       radial-gradient(circle at var(--centre), #000 0, rgb(0 0 0 / 0.55) 40%, transparent var(--reach)),
-      var(--clear);
+      var(--clear),
+      var(--foot);
     mask-composite: intersect;
     pointer-events: none;
   }
@@ -299,9 +305,11 @@ const jsonLd = {
     gap: 1.75rem;
   }
 
+  /* Soft cards, where the .org draws ruled columns. */
   .pillars div {
-    padding-left: 1.25rem;
-    border-left: 1px solid var(--rule-strong);
+    padding: 1.35rem 1.5rem 1.5rem;
+    border-radius: 1rem;
+    background: var(--paper-deep);
   }
 
   .pillars dt {
@@ -315,6 +323,15 @@ const jsonLd = {
     line-height: 1.7;
     text-wrap: pretty;
     color: var(--ink-soft);
+  }
+
+  /* Her name at the end of "Sobre mí", like a signature under a letter. */
+  .signature {
+    margin-top: 1.5rem;
+    font: italic 500 2.75rem / 1 var(--font-display);
+    color: var(--accent);
+    transform: rotate(-3deg);
+    transform-origin: left center;
   }
 
   .more {
@@ -378,10 +395,6 @@ const jsonLd = {
   }
 
   /* Latest posts */
-
-  .blog {
-    background: var(--band);
-  }
 
   .section-head {
     display: flex;

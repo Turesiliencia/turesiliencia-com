@@ -70,18 +70,29 @@ svg {
   color: var(--navy-950);
 }
 
-/* Shared by the pages, as on turesiliencia.org: a section with a rule above
-   it, a gold label, a display title, body text and two kinds of button. */
+/* Shared by the pages: a section with a rule above it, a label, a display
+   title, body text and two kinds of button. Hers, not the association's:
+   turesiliencia.org sets its labels in spaced capitals, its titles in
+   capitals and its buttons square; here the labels are in the serif's
+   italic and in sentence case, as if handwritten, and the buttons are
+   rounded. */
 
 .section {
   padding: clamp(4rem, 10vh, 6.5rem) var(--gutter);
-  border-top: 1px solid var(--rule);
+}
+
+/* Where the .org runs its sections full width between hairlines, hers have
+   none: some sit instead in a soft panel, rounded and set in from the edges
+   of the page (in navy for the book, which has the `dark` class). */
+.panel {
+  margin-inline: clamp(0.75rem, 2.5vw, 2rem);
+  border-radius: clamp(1.5rem, 3.5vw, 2.75rem);
+  background: var(--paper-deep);
 }
 
 .label {
-  font: 600 0.75rem / 1.4 var(--font-sans);
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
+  font: italic 500 1.35rem / 1.3 var(--font-display);
+  letter-spacing: 0.01em;
   color: var(--accent);
 }
 
@@ -116,13 +127,13 @@ svg {
 .button-secondary {
   display: inline-flex;
   flex-direction: column;
-  gap: 0.4rem;
-  padding: 1rem 1.75rem;
+  gap: 0.2rem;
+  padding: 0.95rem 1.9rem;
   border: 1px solid var(--button-bg);
-  font-size: 0.75rem;
+  border-radius: 2rem;
+  font-size: 0.9375rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
@@ -130,10 +141,8 @@ svg {
 
 .button-primary span,
 .button-secondary span {
-  font-size: 0.9375rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  text-transform: none;
+  font-size: 0.875rem;
+  font-weight: 400;
 }
 
 .button-primary {
@@ -162,10 +171,9 @@ svg {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 0.75rem;
+  font-size: 0.9375rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
   color: var(--accent);
 }
 

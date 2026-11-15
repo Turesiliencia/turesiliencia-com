@@ -88,7 +88,7 @@ const jsonLd = {
 
   {
     others.length > 0 && (
-      <section class="more section" aria-labelledby="more-title">
+      <section class="more section panel" aria-labelledby="more-title">
         <h2 id="more-title" class="label">Sigue leyendo</h2>
         <ul class="posts">
           {others.map((other) => (
@@ -147,6 +147,7 @@ const jsonLd = {
     max-height: min(75vh, 40rem);
     height: auto;
     border: 1px solid var(--rule);
+    border-radius: 1rem;
   }
 
   .prose {
@@ -252,10 +253,6 @@ const jsonLd = {
   .back {
     max-width: 42rem;
     margin: 3.5rem auto 0;
-  }
-
-  .more {
-    background: var(--band);
   }
 
   .more .label {

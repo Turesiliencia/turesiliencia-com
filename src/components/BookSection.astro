@@ -16,7 +16,7 @@ const { id, headingLevel = "h2" } = Astro.props;
 const Label = headingLevel;
 ---
 
-<section id={id} class="book section dark" aria-labelledby={id ? `${id}-title` : undefined}>
+<section id={id} class="book section panel dark" aria-labelledby={id ? `${id}-title` : undefined}>
   <div class="inner">
     <Image
       class="cover"
@@ -70,6 +70,7 @@ const Label = headingLevel;
     width: 100%;
     max-width: 14rem;
     height: auto;
+    border-radius: 0.375rem;
     box-shadow: 0 1.5rem 3rem var(--shadow);
   }
 

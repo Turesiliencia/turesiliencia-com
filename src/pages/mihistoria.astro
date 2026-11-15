@@ -67,7 +67,7 @@ const jsonLd = {
     />
   </section>
 
-  <section class="facets section" aria-label="Formación y experiencia">
+  <section class="facets section panel" aria-label="Formación y experiencia">
     <div class="facets-inner">
       <div class="facet">
         <h2 class="facet-title">Mi formación</h2>
@@ -229,14 +229,11 @@ const jsonLd = {
     width: 100%;
     height: auto;
     border: 1px solid var(--rule-strong);
+    border-radius: 1rem;
     box-shadow: 0 1.5rem 3rem var(--shadow);
   }
 
   /* Formación, experiencia, qué me hace diferente */
-
-  .facets {
-    background: var(--band);
-  }
 
   .facets-inner {
     display: grid;
@@ -367,7 +364,9 @@ const jsonLd = {
     width: 100%;
     height: auto;
     aspect-ratio: 16 / 9;
+    overflow: hidden;
     border: 1px solid var(--rule);
+    border-radius: 1rem;
     background: var(--navy-900);
   }
 
