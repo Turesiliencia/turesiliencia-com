@@ -1,20 +1,23 @@
 ---
-// What she works on, how the sessions go and what they cost. Brings together
-// three pages of the old site: Temarios (the areas), Tu videoconferencia (the
-// sessions are online) and Tarifas (the prices, in src/content/site.ts). Their
-// old addresses redirect here (vercel.json). The wording is hers, moved into
-// the first person, with the duelo migratorio area taken from Mi historia.
+// Her individual support ("Acompañamiento" in the menu): what she works on,
+// how the sessions go and what they cost. Brings together three pages of the
+// old site: Temarios (the areas), Tu videoconferencia (the sessions are
+// online) and Tarifas (the prices, in src/content/site.ts). Their old
+// addresses redirect here (vercel.json), so the address stays /servicios/.
+// The wording is hers, moved into the first person, with the duelo migratorio
+// area taken from Mi historia. Her workshops for groups and companies are on
+// /conferencias/.
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { areas } from "../content/services";
 import { sessions, site } from "../content/site";
 
 const description =
-  "Cómo acompaña Deissy Olarte: duelo migratorio, trauma y pérdida, familia, educación e integración social, en sesiones online individuales o en pareja, y capacitaciones para grupos y empresas. Tarifas y reserva.";
+  "Cómo acompaña Deissy Olarte: duelo migratorio, trauma y pérdida, familia, educación e integración social, en sesiones online individuales o en pareja. Tarifas y reserva.";
 ---
 
-<BaseLayout title="Servicios y tarifas" description={description} current="/servicios/">
+<BaseLayout title="Acompañamiento y tarifas" description={description} current="/servicios/">
   <section class="intro">
-    <p class="label">Servicios</p>
+    <p class="label">Acompañamiento</p>
     <h1 class="title">Cómo te acompaño</h1>
     <p class="body-text">
       La resiliencia es la extraordinaria capacidad que todos tenemos de sobreponernos al dolor emocional y
@@ -57,8 +60,8 @@ const description =
           ser individuales, en pareja o en grupo.
         </p>
         <p class="body-text">
-          Las capacitaciones, los seminarios y los talleres para empresas y centros tienen un precio
-          personalizado: escríbeme y lo concretamos.
+          Los talleres y las capacitaciones para grupos, centros educativos y empresas están en{" "}
+          <a href="/conferencias/#formatos">Conferencias</a>, con un precio a la medida de cada encuentro.
         </p>
       </div>
       <dl class="prices">
@@ -70,10 +73,6 @@ const description =
             </div>
           ))
         }
-        <div>
-          <dt>Capacitaciones para empresas</dt>
-          <dd class="custom">Precio personalizado</dd>
-        </div>
       </dl>
     </div>
   </section>
@@ -240,10 +239,6 @@ const description =
     font: 600 1.9rem / 1 var(--font-display);
     color: var(--accent);
     white-space: nowrap;
-  }
-
-  .prices dd.custom {
-    font: italic 500 1.35rem / 1.2 var(--font-display);
   }
 
   /* Booking */

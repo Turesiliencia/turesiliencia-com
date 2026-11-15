@@ -3,7 +3,8 @@ import BookSection from "../components/BookSection.astro";
 import PostCard from "../components/PostCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { areas } from "../content/services";
-import { site } from "../content/site";
+import { book, site } from "../content/site";
+import { talks } from "../content/talks";
 import { getPosts } from "../lib/sanity";
 
 const latest = (await getPosts()).slice(0, 3);
@@ -13,6 +14,8 @@ const jsonLd = {
   "@type": "Person",
   name: "Deissy Olarte",
   url: Astro.site?.href,
+  jobTitle: "Teóloga, investigadora y conferencista",
+  knowsAbout: ["Reconstrucción Humana", "Duelo migratorio", "Transiciones vitales", "Resiliencia"],
   email: `mailto:${site.email}`,
   sameAs: [site.instagram.url],
   // The association is her own organisation, not another profile of hers.
@@ -25,15 +28,49 @@ const jsonLd = {
     <div class="hero-text">
       <p class="eyebrow label">Hola, soy</p>
       <h1 class="headline">Deissy Olarte</h1>
-      <p class="subtitle">Duelo migratorio, pérdida y transiciones vitales</p>
+      <p class="subtitle">Teóloga, investigadora y conferencista internacional</p>
       <p class="lede">
-        Acompaño a personas que atraviesan una pérdida, una migración o un cambio que lo altera todo, para
-        que puedan volver a reconocerse. Aquí comparto también lo que escribo y mi libro.
+        <strong>Reconstrucción Humana:</strong> pensamiento y herramientas para comprender las transiciones que
+        transforman a las personas, las comunidades y las organizaciones.
+      </p>
+      <p class="lede bio">
+        Colombiana migrante en España, autora de <em>{book.title}</em> y fundadora y presidenta de
+        TuResiliencia.
       </p>
       <ul class="ctas">
-        <li><a class="button-primary" href="/servicios/">Cómo te acompaño</a></li>
-        <li><a class="button-secondary" href="/miblog/">Leer el blog</a></li>
+        <li><a class="button-primary" href="/conferencias/#propuesta">Invítame a tu evento</a></li>
+        <li><a class="button-secondary" href="/conferencias/">Conoce mis conferencias</a></li>
       </ul>
+    </div>
+  </section>
+
+  <section id="conferencias" class="talks section panel" aria-labelledby="talks-title">
+    <div class="split">
+      <div>
+        <p class="label">Conferencias</p>
+        <h2 id="talks-title" class="title">Para congresos, universidades, empresas e instituciones</h2>
+        <p class="body-text">
+          Llevo la Reconstrucción Humana a encuentros de todo tipo, en conferencias, diálogos, mesas
+          redondas y talleres, presenciales o en línea.
+        </p>
+        <ul class="ctas">
+          <li><a class="button-primary" href="/conferencias/">Mis conferencias</a></li>
+          <li><a class="button-secondary" href="/conferencias/#propuesta">Solicitar propuesta</a></li>
+        </ul>
+      </div>
+      <ol class="areas">
+        {
+          talks.map((talk, i) => (
+            <li>
+              <a href={`/conferencias/#${talk.id}`}>
+                <span class="number" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                <span class="area-title">{talk.title}</span>
+                <span class="arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
     </div>
   </section>
 
@@ -41,21 +78,26 @@ const jsonLd = {
     <div class="about-inner">
       <div>
         <p class="label">Sobre mí</p>
-        <h2 id="about-title" class="title">Alguien que te escucha puede marcar la diferencia</h2>
+        <h2 id="about-title" class="title">Entre la teología, la docencia y el acompañamiento</h2>
         <p class="body-text">
-          Soy Deissy Olarte. Quizá, como tú, he vivido momentos muy difíciles, y en ellos también busqué
-          ayuda. No me arrepiento: esa experiencia me llevó a dedicarme a acompañar a otras personas.
+          Investigo el duelo y la Reconstrucción Humana: lo que una pérdida, una migración o un cambio que lo
+          altera todo transforma en una persona, y cómo puede volver a reconocerse. De esa investigación nace
+          mi libro, <em>{book.title}</em>.
         </p>
         <p class="body-text">
-          Hoy me centro en el duelo migratorio, la pérdida y las transiciones vitales: esos cambios que nos
-          obligan a preguntarnos quiénes somos y cuál es nuestro lugar. Soy también fundadora de la{" "}
-          <a href={site.association.url}>{site.association.name}</a>, que lleva la Reconstrucción Humana a la
-          formación, la investigación y la cooperación con universidades, empresas e instituciones.
+          Soy colombiana y vivo en España. También he atravesado momentos muy difíciles, y en ellos busqué
+          ayuda: esa experiencia da profundidad a lo que enseño y me llevó a acompañar a personas en España y
+          en América Latina.
+        </p>
+        <p class="body-text">
+          Soy fundadora y presidenta de la <a href={site.association.url}>{site.association.name}</a>, que
+          lleva la Reconstrucción Humana a la formación, la investigación y la cooperación con universidades,
+          empresas e instituciones.
         </p>
         <p class="signature">Deissy</p>
         <p class="more">
           <a class="arrow-link" href="/mihistoria/">
-            Mi historia <span aria-hidden="true">→</span>
+            Mi trayectoria <span aria-hidden="true">→</span>
           </a>
         </p>
       </div>
@@ -82,36 +124,7 @@ const jsonLd = {
     </div>
   </section>
 
-  <section id="servicios" class="services section panel" aria-labelledby="services-title">
-    <div class="services-inner">
-      <div>
-        <p class="label">Cómo te acompaño</p>
-        <h2 id="services-title" class="title">Sesiones online, desde cualquier lugar</h2>
-        <p class="body-text">
-          Acompaño en el duelo migratorio, el trauma y la pérdida, y también a familias y centros educativos.
-          Las sesiones son por videoconferencia, individuales o en pareja, y ofrezco capacitaciones y talleres
-          para grupos y empresas.
-        </p>
-        <ul class="ctas">
-          <li><a class="button-primary" href="/servicios/">Servicios y tarifas</a></li>
-          <li><a class="button-secondary" href="/servicios/#reservar">Reservar una sesión</a></li>
-        </ul>
-      </div>
-      <ol class="areas">
-        {
-          areas.map((area, i) => (
-            <li>
-              <a href={`/servicios/#${area.id}`}>
-                <span class="number" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-                <span class="area-title">{area.title}</span>
-                <span class="arrow" aria-hidden="true">→</span>
-              </a>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
-  </section>
+  <BookSection id="libro" />
 
   {
     latest.length > 0 && (
@@ -136,14 +149,43 @@ const jsonLd = {
     )
   }
 
-  <BookSection id="libro" />
+  <section id="acompanamiento" class="support section panel" aria-labelledby="support-title">
+    <div class="split">
+      <div>
+        <p class="label">Acompañamiento</p>
+        <h2 id="support-title" class="title">Si atraviesas una pérdida o un cambio, te acompaño</h2>
+        <p class="body-text">
+          Acompaño a personas que viven una migración, un duelo o una transición que lo altera todo, para que
+          puedan volver a reconocerse. Las sesiones son por videoconferencia, individuales o en pareja, desde
+          cualquier lugar.
+        </p>
+        <ul class="ctas">
+          <li><a class="button-primary" href="/servicios/">Acompañamiento y tarifas</a></li>
+          <li><a class="button-secondary" href="/servicios/#reservar">Reservar una sesión</a></li>
+        </ul>
+      </div>
+      <ol class="areas">
+        {
+          areas.map((area, i) => (
+            <li>
+              <a href={`/servicios/#${area.id}`}>
+                <span class="number" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                <span class="area-title">{area.title}</span>
+                <span class="arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
 
   <section id="contacto" class="contact section" aria-labelledby="contact-title">
     <p class="label">Contacto</p>
     <h2 id="contact-title">Escríbeme</h2>
     <p class="body-text">
-      Si quieres reservar una sesión, contarme tu historia, preguntarme por el libro o proponerme una
-      colaboración, puedes escribirme o encontrarme en Instagram.
+      Si organizas un congreso, una jornada o una formación, pídeme una propuesta. Si buscas acompañamiento,
+      quieres preguntarme por el libro o proponerme una colaboración, escríbeme o encuéntrame en Instagram.
     </p>
     <ul class="actions">
       <li>
@@ -229,7 +271,8 @@ const jsonLd = {
   .hero-text > :nth-child(2) { animation-delay: 0.08s; }
   .hero-text > :nth-child(3) { animation-delay: 0.2s; }
   .hero-text > :nth-child(4) { animation-delay: 0.3s; }
-  .hero-text > :nth-child(5) { animation-delay: 0.42s; }
+  .hero-text > :nth-child(5) { animation-delay: 0.36s; }
+  .hero-text > :nth-child(6) { animation-delay: 0.46s; }
 
   @keyframes rise {
     from {
@@ -267,12 +310,22 @@ const jsonLd = {
   }
 
   .lede {
-    max-width: 52ch;
+    max-width: 56ch;
     margin-top: 1.75rem;
     font-size: 1.0625rem;
     line-height: 1.75;
     text-wrap: pretty;
     color: var(--ink-soft);
+  }
+
+  .lede strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .bio {
+    margin-top: 0.9rem;
+    font-size: 0.9375rem;
   }
 
   .ctas {
@@ -338,9 +391,9 @@ const jsonLd = {
     margin-top: 2rem;
   }
 
-  /* Services */
+  /* Conferencias and Acompañamiento: text beside a numbered list. */
 
-  .services-inner {
+  .split {
     display: grid;
     gap: 3rem;
     max-width: 76rem;
@@ -348,7 +401,7 @@ const jsonLd = {
   }
 
   @media (min-width: 60rem) {
-    .services-inner {
+    .split {
       grid-template-columns: 1fr 1fr;
       gap: clamp(3rem, 7vw, 6rem);
       align-items: center;

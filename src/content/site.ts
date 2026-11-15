@@ -5,7 +5,7 @@ export const site = {
   name: "Deissy Olarte",
   title: "Deissy Olarte · TuResiliencia",
   description:
-    "Deissy Olarte, especialista en duelo migratorio y transiciones vitales, autora de «Sobrevivir no es reconstruirse» y fundadora de TuResiliencia. Su blog, su libro y cómo contactarla.",
+    "Deissy Olarte, teóloga, investigadora y conferencista en Reconstrucción Humana, autora de «Sobrevivir no es reconstruirse» y fundadora y presidenta de TuResiliencia. Conferencias, trayectoria, libro y blog.",
   email: "turesiliencia.com@gmail.com",
   instagram: {
     handle: "@turesiliencia_",
@@ -39,10 +39,13 @@ export const sessions = {
 };
 
 // The pages and home-page sections linked from the header and the footer.
+// Six don't fit a phone's header: there it leaves out those marked
+// wideOnly, still in the footer and in the home page's own links.
 export const nav = [
-  { label: "Mi historia", href: "/mihistoria/" },
-  { label: "Servicios", href: "/servicios/" },
+  { label: "Sobre mí", href: "/mihistoria/" },
+  { label: "Conferencias", href: "/conferencias/" },
+  { label: "Acompañamiento", href: "/servicios/" },
   { label: "Blog", href: "/miblog/" },
-  { label: "Mi libro", href: "/#libro" },
-  { label: "Contacto", href: "/#contacto" },
+  { label: "Mi libro", href: "/#libro", wideOnly: true },
+  { label: "Contacto", href: "/#contacto", wideOnly: true },
 ];

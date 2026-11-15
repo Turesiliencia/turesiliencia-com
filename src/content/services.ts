@@ -1,7 +1,8 @@
-// The six areas she works in, shown in full on /servicios/ (each with its id
-// as an anchor) and by title on the home page. Her wording from the old
-// site's Temarios, moved into the first person; the first area is from her
-// Mi historia text.
+// The five areas of her individual support, shown in full on /servicios/
+// (each with its id as an anchor). Her wording from the old site's Temarios,
+// moved into the first person; the first area is from her Mi historia text.
+// Its sixth, workshops for groups and companies, is now a format on
+// /conferencias/ (src/content/talks.ts).
 export const areas = [
   {
     id: "duelo-migratorio",
@@ -61,19 +62,6 @@ export const areas = [
       "Diversidad y orientación sexual",
       "Inclusión social",
       "Problemas en el trabajo, acoso laboral, liderazgo, estrés",
-    ],
-  },
-  {
-    id: "capacitaciones",
-    title: "Capacitaciones, seminarios y talleres",
-    text: "Para grupos, centros educativos y empresas.",
-    items: [
-      "Resiliencia migratoria y reinvención profesional",
-      "Gestión de las emociones",
-      "Elogio y corrección a los hijos",
-      "Adolescencia",
-      "Cómo afrontar crisis evolutivas y familiares",
-      "El apego",
     ],
   },
 ];

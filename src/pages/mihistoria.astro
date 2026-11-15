@@ -1,22 +1,26 @@
 ---
-// Her story, at the same address as on the old site. The text is hers, from
-// that page (last updated March 2026), with spelling and punctuation corrected.
+// "Sobre mí" in the menu, at the address of the old site's Mi historia. Her
+// path first (thought and research, education, experience, recognition, work,
+// stages and media), then her story, then the association. The story is hers,
+// from the old page (last updated March 2026), with spelling and punctuation
+// corrected; the intro is a draft in her voice.
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import portrait from "../assets/deissy-olarte.jpg";
-import { site } from "../content/site";
+import { book, site } from "../content/site";
 
 const description =
-  "La historia de Deissy Olarte: su formación, su experiencia en docencia y acompañamiento, y el premio «Mujer Resiliente del Año 2025» de la Fundación Con Valores.";
+  "La trayectoria de Deissy Olarte, teóloga, investigadora y conferencista: su formación, su docencia, su libro, el premio «Mujer Resiliente del Año 2025» de la Fundación Con Valores y su historia.";
 
+// Each title with where it was taken, as far as she has said.
 const education = [
-  "Teóloga, titulada en EE. UU.",
-  "Máster en Psicología y Gestión Familiar (Universidad de Valencia)",
-  "Máster en Atención a la Diversidad y Educación Inclusiva",
-  "Curso de Docencia y Formación para el Empleo (Valencia, España)",
-  "Curso de Fonética y Fonoaudiología (Universidad Nacional de Colombia)",
-  "18 cursos de actualización en el SENA (Colombia)",
-  "Formación en Inteligencia Artificial",
+  { title: "Teología", where: "Estados Unidos" },
+  { title: "Máster en Psicología y Gestión Familiar", where: "Universidad de Valencia" },
+  { title: "Máster en Atención a la Diversidad y Educación Inclusiva" },
+  { title: "Curso de Docencia y Formación para el Empleo", where: "Valencia, España" },
+  { title: "Curso de Fonética y Fonoaudiología", where: "Universidad Nacional de Colombia" },
+  { title: "18 cursos de actualización", where: "SENA, Colombia" },
+  { title: "Formación en Inteligencia Artificial" },
 ];
 
 const offer = [
@@ -33,7 +37,7 @@ const jsonLd = {
     "@type": "Person",
     name: "Deissy Olarte",
     url: Astro.site?.href,
-    jobTitle: "Especialista en duelo migratorio y transiciones vitales",
+    jobTitle: "Teóloga, investigadora y conferencista",
     award: "Mujer Resiliente del Año 2025, Fundación Con Valores",
     sameAs: [site.instagram.url],
     affiliation: { "@type": "Organization", name: site.association.name, url: site.association.url },
@@ -41,21 +45,24 @@ const jsonLd = {
 };
 ---
 
-<BaseLayout title="Mi historia" description={description} jsonLd={jsonLd} current="/mihistoria/">
+<BaseLayout title="Sobre mí" description={description} jsonLd={jsonLd} current="/mihistoria/">
   <section class="intro">
     <div class="intro-text">
-      <p class="label">Mi historia</p>
-      <h1 class="title">Alguien que te escucha puede marcar la diferencia</h1>
+      <p class="label">Sobre mí</p>
+      <h1 class="title">Mi trayectoria</h1>
       <p class="body-text">
-        Hola, soy Deissy Olarte. Yo, quizás igual que tú, tuve una experiencia de vida un poco difícil. He
-        pasado por momentos muy complicados, pero no por ello me he derrumbado; también busqué ayuda, y no
-        me arrepiento en lo más mínimo, pues tengo claro que para eso existen los profesionales, y aún más
-        aquellos que tienen un valor humano innegable.
+        Soy teóloga, investigadora y conferencista. Trabajo sobre el duelo y la Reconstrucción Humana desde
+        la docencia universitaria, la investigación, la escritura y el acompañamiento a personas en España y
+        en América Latina.
       </p>
       <p class="body-text">
-        Por esto y por muchas cosas más me he dedicado a ser útil para otras personas, a curar el alma o el
-        corazón, como dicen algunos.
+        Soy colombiana, vivo en España y soy fundadora y presidenta de la{" "}
+        <a href={site.association.url}>{site.association.name}</a>.
       </p>
+      <ul class="actions intro-actions">
+        <li><a class="button-primary" href="/conferencias/">Mis conferencias</a></li>
+        <li><a class="button-secondary" href="/conferencias/#propuesta">Invítame a tu evento</a></li>
+      </ul>
     </div>
     <Image
       class="portrait"
@@ -70,14 +77,20 @@ const jsonLd = {
   <section class="facets section panel" aria-label="Formación y experiencia">
     <div class="facets-inner">
       <div class="facet">
-        <h2 class="facet-title">Mi formación</h2>
-        <p class="body-text">Me he formado con los mejores profesionales.</p>
-        <ul class="ticks">
-          {education.map((item) => <li>{item}</li>)}
+        <h2 class="facet-title">Formación</h2>
+        <ul class="ticks degrees">
+          {
+            education.map((item) => (
+              <li>
+                {item.title}
+                {item.where && <span>{item.where}</span>}
+              </li>
+            ))
+          }
         </ul>
       </div>
       <div class="facet">
-        <h2 class="facet-title">Mi experiencia</h2>
+        <h2 class="facet-title">Docencia y experiencia</h2>
         <blockquote>
           <p>
             Con más de 15 años en las dos ramas que tanto amo, la docencia (la cátedra universitaria y el
@@ -88,23 +101,95 @@ const jsonLd = {
         </blockquote>
       </div>
       <div class="facet">
-        <h2 class="facet-title">Qué me hace diferente</h2>
-        <blockquote>
-          <p>
-            Transformo el duelo migratorio, el trauma y la pérdida en resiliencia y propósito. Brindo
-            herramientas para la reconstrucción personal y la adaptación con bienestar emocional. Asesoro a
-            profesionales, y ayudo a familias en educación inclusiva y a personas neurodivergentes a encontrar
-            su lugar y avanzar con dignidad y elocuencia.
-          </p>
-        </blockquote>
+        <h2 class="facet-title">Reconocimientos</h2>
+        <ul class="ticks degrees">
+          <li>
+            Premio «Mujer Resiliente del Año»
+            <span>Fundación Con Valores, 2025</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="work section" aria-labelledby="work-title">
+    <div class="work-inner">
+      <p class="label">Obra</p>
+      <h2 id="work-title" class="title">Publicaciones</h2>
+      <dl class="works">
+        <div>
+          <dt><a href="/#libro"><em>{book.title}</em></a></dt>
+          <dd>Libro, 2026. Sobre la diferencia entre sobrevivir a una pérdida y reconstruirse.</dd>
+        </div>
+        <div>
+          <dt><a href="/miblog/">Mi blog</a></dt>
+          <dd>Artículos sobre el duelo migratorio, la identidad, la familia y la resiliencia, desde 2023.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="videos section" aria-labelledby="videos-title">
+    <div class="videos-inner">
+      <p class="label">En escenarios y medios</p>
+      <h2 id="videos-title" class="title">En vídeo</h2>
+      <div class="video-grid">
+        <figure>
+          <video
+            src="/video/mujer-resiliente-2025.mp4"
+            poster="/video/mujer-resiliente-2025.jpg"
+            width="848"
+            height="480"
+            controls
+            preload="none"
+            playsinline></video>
+          <figcaption>
+            <strong>Gala de la Fundación Con Valores, 2025.</strong> Recibo el premio «Mujer Resiliente del
+            Año».
+          </figcaption>
+        </figure>
+        <figure>
+          <div class="embed">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/LQVeVrUJOEo"
+              title="Deissy Olarte, la Mujer Resiliente del Año (entrevista en «Marcas que dejan Huellas»)"
+              loading="lazy"
+              allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen></iframe>
+          </div>
+          <figcaption>
+            <strong>«Marcas que dejan Huellas».</strong> Entrevista como Mujer Resiliente del Año: mi historia y
+            mi trabajo.
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
   <section class="story section" aria-labelledby="story-title">
     <div class="story-inner">
-      <p class="label">Transiciones vitales</p>
-      <h2 id="story-title" class="title">El duelo migratorio no te define</h2>
+      <p class="label">Mi historia</p>
+      <h2 id="story-title" class="title">Alguien que te escucha puede marcar la diferencia</h2>
+      <p class="body-text">
+        Hola, soy Deissy Olarte. Yo, quizás igual que tú, tuve una experiencia de vida un poco difícil. He
+        pasado por momentos muy complicados, pero no por ello me he derrumbado; también busqué ayuda, y no
+        me arrepiento en lo más mínimo, pues tengo claro que para eso existen los profesionales, y aún más
+        aquellos que tienen un valor humano innegable.
+      </p>
+      <p class="body-text">
+        Por esto y por muchas cosas más me he dedicado a ser útil para otras personas, a curar el alma o el
+        corazón, como dicen algunos.
+      </p>
+      <blockquote class="difference">
+        <p>
+          Transformo el duelo migratorio, el trauma y la pérdida en resiliencia y propósito. Brindo
+          herramientas para la reconstrucción personal y la adaptación con bienestar emocional. Asesoro a
+          profesionales, y ayudo a familias en educación inclusiva y a personas neurodivergentes a encontrar
+          su lugar y avanzar con dignidad y elocuencia.
+        </p>
+      </blockquote>
+      <h3 class="subtitle">El duelo migratorio no te define</h3>
       <p class="body-text">
         Hay etapas en la vida que nos desafían a un nivel profundo: transiciones vitales que redefinen
         quiénes somos, cómo nos relacionamos y cuál es nuestro lugar en el mundo. La migración es una de las
@@ -151,37 +236,6 @@ const jsonLd = {
     </div>
   </section>
 
-  <section class="videos section" aria-labelledby="videos-title">
-    <div class="videos-inner">
-      <h2 id="videos-title" class="label">En vídeo</h2>
-      <div class="video-grid">
-        <figure>
-          <video
-            src="/video/mujer-resiliente-2025.mp4"
-            poster="/video/mujer-resiliente-2025.jpg"
-            width="848"
-            height="480"
-            controls
-            preload="none"
-            playsinline></video>
-          <figcaption>El momento del reconocimiento, en la gala de la Fundación Con Valores</figcaption>
-        </figure>
-        <figure>
-          <div class="embed">
-            <iframe
-              src="https://www.youtube-nocookie.com/embed/LQVeVrUJOEo"
-              title="Deissy Olarte, la Mujer Resiliente del Año (entrevista en «Marcas que dejan Huellas»)"
-              loading="lazy"
-              allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen></iframe>
-          </div>
-          <figcaption>La entrevista completa en «Marcas que dejan Huellas»</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
   <section class="cta section" aria-labelledby="cta-title">
     <p class="label">Agenda tu videoconferencia</p>
     <h2 id="cta-title" class="cta-title">¿Estás atravesando una transición vital?</h2>
@@ -191,14 +245,14 @@ const jsonLd = {
       versión más resiliente.
     </p>
     <ul class="actions">
-      <li><a class="button-primary" href="/servicios/">Servicios y tarifas</a></li>
+      <li><a class="button-primary" href="/servicios/">Acompañamiento y tarifas</a></li>
       <li><a class="button-secondary" href={`mailto:${site.email}`}>Escríbeme</a></li>
     </ul>
     <p class="signature">
       <strong>Deissy Olarte</strong>
-      Fundadora de <a href={site.association.url}>TuResiliencia</a><br />
-      Mujer Resiliente del Año 2025, Fundación Con Valores<br />
-      Especialista en duelo migratorio y transiciones vitales
+      Teóloga, investigadora y conferencista<br />
+      Fundadora y presidenta de <a href={site.association.url}>TuResiliencia</a><br />
+      Mujer Resiliente del Año 2025, Fundación Con Valores
     </p>
   </section>
 </BaseLayout>
@@ -339,10 +393,11 @@ const jsonLd = {
   .videos-inner {
     max-width: 76rem;
     margin-inline: auto;
+    text-align: center;
   }
 
-  .videos h2 {
-    text-align: center;
+  .videos .video-grid {
+    text-align: left;
   }
 
   .video-grid {
@@ -429,5 +484,73 @@ const jsonLd = {
 
   .signature a:hover {
     color: var(--accent);
+  }
+  .intro-actions {
+    justify-content: flex-start;
+    margin-top: 2rem;
+  }
+
+  /* Each degree, then where it was taken. */
+  .degrees span {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--ink-soft);
+  }
+
+  .degrees li {
+    color: var(--ink);
+  }
+
+  /* Publications */
+
+  .work-inner {
+    max-width: 44rem;
+    margin-inline: auto;
+  }
+
+  .works {
+    margin-top: 2rem;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .works div {
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .works dt {
+    font: italic 500 1.6rem / 1.2 var(--font-display);
+  }
+
+  .works dt a {
+    color: var(--ink);
+  }
+
+  .works dt a:hover {
+    color: var(--accent);
+  }
+
+  .works dd {
+    margin-top: 0.35rem;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  .story .difference {
+    margin: 2rem 0 0;
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--rule-strong);
+  }
+
+  .story .subtitle {
+    margin-top: clamp(2.5rem, 6vh, 3.5rem);
+    font: italic 500 clamp(1.7rem, 3.2vw, 2.2rem) / 1.2 var(--font-display);
+    text-wrap: balance;
+    color: var(--ink);
+  }
+
+  .story .subtitle + .body-text {
+    margin-top: 1rem;
   }
 </style>

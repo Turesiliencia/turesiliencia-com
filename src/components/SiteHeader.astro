@@ -19,7 +19,7 @@ const { current } = Astro.props;
       <ul>
         {
           nav.map((item) => (
-            <li>
+            <li class:list={[{ "wide-only": item.wideOnly }]}>
               <a href={item.href} aria-current={item.href === current ? "page" : undefined}>
                 {item.label}
               </a>
@@ -110,6 +110,12 @@ const { current } = Astro.props;
       justify-content: flex-end;
       gap: 0.5rem;
       padding: 0;
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .wide-only {
+      display: none;
     }
   }
 

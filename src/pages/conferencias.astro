@@ -1,0 +1,337 @@
+---
+// For organisers of congresses, universities, companies, NGOs, foundations
+// and administrations: her lines of talks, the formats and how to ask for a
+// proposal (src/content/talks.ts). Her workshops, once on /servicios/, are
+// one of the formats.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { complementary, formats, proposalHref, talks } from "../content/talks";
+import { site } from "../content/site";
+
+// "derechos humanos, mujeres migrantes y desarrollo rural"
+const lines = new Intl.ListFormat("es").format(complementary.map((line) => line.toLowerCase()));
+
+const description =
+  "Conferencias, diálogos, mesas redondas y talleres de Deissy Olarte sobre Reconstrucción Humana, duelo migratorio y transiciones vitales, para congresos, universidades, empresas e instituciones.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  url: new URL("/conferencias/", Astro.site).href,
+  name: "Conferencias",
+  description,
+  about: {
+    "@type": "Person",
+    name: "Deissy Olarte",
+    url: Astro.site?.href,
+    jobTitle: "Teóloga, investigadora y conferencista",
+    affiliation: { "@type": "Organization", name: site.association.name, url: site.association.url },
+  },
+};
+---
+
+<BaseLayout title="Conferencias" description={description} jsonLd={jsonLd} current="/conferencias/">
+  <section class="intro">
+    <p class="label">Conferencias</p>
+    <h1 class="title">Pensamiento para comprender lo que nos transforma</h1>
+    <p class="body-text">
+      Llevo la Reconstrucción Humana a congresos, universidades, empresas, ONG, fundaciones y
+      administraciones: conferencias, diálogos, mesas redondas y talleres sobre las pérdidas y las
+      transiciones que cambian a las personas, las comunidades y las organizaciones.
+    </p>
+    <ul class="ctas">
+      <li><a class="button-primary" href="#propuesta">Solicitar propuesta</a></li>
+    </ul>
+  </section>
+
+  <section class="talks section" aria-labelledby="talks-title">
+    <h2 id="talks-title" class="visually-hidden">Líneas de conferencia</h2>
+    <ol class="talk-list">
+      {
+        talks.map((talk, i) => (
+          <li class="talk" id={talk.id}>
+            <div class="talk-head">
+              <span class="number" aria-hidden="true">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3>{talk.title}</h3>
+              <p class="question">{talk.question}</p>
+            </div>
+            <div class="talk-body">
+              <p>{talk.text}</p>
+              <dl>
+                <div>
+                  <dt>Para quién</dt>
+                  <dd>{talk.audience}</dd>
+                </div>
+                <div>
+                  <dt>Qué se lleva el público</dt>
+                  <dd>
+                    <ul>
+                      {talk.takeaways.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section id="formatos" class="formats section panel" aria-labelledby="formats-title">
+    <div class="formats-inner">
+      <div>
+        <p class="label">Formatos</p>
+        <h2 id="formats-title" class="title">Presencial o en línea, a la medida del encuentro</h2>
+        <p class="body-text">
+          Adapto cada intervención al público, al tiempo y al lugar. También trabajo líneas complementarias,
+          vinculadas a mi trayectoria y a la <a href={site.association.url}>{site.association.name}</a>:{" "}
+          {lines}.
+        </p>
+      </div>
+      <dl class="format-list">
+        {
+          formats.map((format) => (
+            <div>
+              <dt>{format.name}</dt>
+              <dd>
+                {format.text}
+                {format.topics && (
+                  <ul>
+                    {format.topics.map((topic) => (
+                      <li>{topic}</li>
+                    ))}
+                  </ul>
+                )}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section id="propuesta" class="proposal section" aria-labelledby="proposal-title">
+    <p class="label">Solicitar propuesta</p>
+    <h2 id="proposal-title" class="proposal-title">Invítame a tu evento</h2>
+    <p class="body-text">
+      Cuéntame qué encuentro preparas, cuándo y para quién, y te envío una propuesta a la medida.
+    </p>
+    <ul class="actions">
+      <li>
+        <a class="button-primary" href={proposalHref}>
+          Solicitar propuesta
+          <span>{site.email}</span>
+        </a>
+      </li>
+      <li>
+        <a class="button-secondary" href="/mihistoria/">
+          Mi trayectoria
+          <span>Formación, obra y reconocimientos</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: clamp(3.5rem, 9vh, 5.5rem) var(--gutter) clamp(3rem, 7vh, 4.5rem);
+    text-align: center;
+  }
+
+  .intro .title {
+    max-width: 20ch;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    text-wrap: balance;
+  }
+
+  .intro .body-text {
+    max-width: 62ch;
+  }
+
+  .ctas {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.25rem;
+    list-style: none;
+  }
+
+  /* The lines of talks: one row each, the title and its question to the
+     left, what it covers to the right. */
+
+  .talk-list {
+    display: grid;
+    gap: clamp(3rem, 7vh, 4.5rem);
+    max-width: 76rem;
+    margin-inline: auto;
+    list-style: none;
+  }
+
+  .talk {
+    display: grid;
+    gap: 1.5rem;
+    scroll-margin-top: 6rem;
+  }
+
+  @media (min-width: 60rem) {
+    .talk {
+      grid-template-columns: 1fr 1.15fr;
+      gap: clamp(3rem, 7vw, 6rem);
+    }
+  }
+
+  .number {
+    font: 600 0.75rem / 1 var(--font-sans);
+    letter-spacing: 0.2em;
+    color: var(--accent);
+  }
+
+  .talk h3 {
+    margin-top: 0.9rem;
+    font: italic 500 clamp(1.9rem, 3.4vw, 2.5rem) / 1.12 var(--font-display);
+    text-wrap: balance;
+    color: var(--ink);
+  }
+
+  .question {
+    margin-top: 1rem;
+    padding-left: 1.1rem;
+    border-left: 1px solid var(--accent);
+    font: italic 500 1.25rem / 1.45 var(--font-display);
+    text-wrap: pretty;
+    color: var(--accent);
+  }
+
+  .talk-body > p {
+    font-size: 1rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    color: var(--ink-soft);
+  }
+
+  .talk-body dl {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+    padding: 1.35rem 1.5rem 1.5rem;
+    border-radius: 1rem;
+    background: var(--paper-deep);
+  }
+
+  .talk-body dt {
+    font: italic 500 1.2rem / 1.2 var(--font-display);
+    color: var(--accent);
+  }
+
+  .talk-body dd {
+    margin-top: 0.4rem;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    text-wrap: pretty;
+    color: var(--ink);
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  dd li {
+    position: relative;
+    padding-left: 1.4rem;
+  }
+
+  dd li + li {
+    margin-top: 0.4rem;
+  }
+
+  dd li::before {
+    content: "";
+    position: absolute;
+    top: 0.62em;
+    left: 0;
+    width: 0.5rem;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  /* Formats */
+
+  .formats-inner {
+    display: grid;
+    gap: 3rem;
+    max-width: 76rem;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 60rem) {
+    .formats-inner {
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 7vw, 6rem);
+      align-items: start;
+    }
+  }
+
+  .format-list {
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .format-list > div {
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .format-list dt {
+    font: italic 500 1.45rem / 1.2 var(--font-display);
+    color: var(--ink);
+  }
+
+  .format-list dd {
+    margin-top: 0.35rem;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  .format-list ul {
+    margin-top: 0.75rem;
+  }
+
+  .format-list li {
+    color: var(--ink);
+  }
+
+  /* Proposal */
+
+  .proposal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .proposal-title {
+    margin-top: 1rem;
+    font: italic 500 clamp(2rem, 4vw, 2.75rem) / 1.15 var(--font-display);
+    color: var(--ink);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2.25rem;
+    list-style: none;
+  }
+
+  .actions a {
+    min-width: 15rem;
+  }
+</style>
