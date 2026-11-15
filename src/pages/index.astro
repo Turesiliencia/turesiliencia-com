@@ -14,7 +14,9 @@ const jsonLd = {
   name: "Deissy Olarte",
   url: Astro.site?.href,
   email: `mailto:${site.email}`,
-  sameAs: [site.instagram.url, site.association.url],
+  sameAs: [site.instagram.url],
+  // The association is her own organisation, not another profile of hers.
+  affiliation: { "@type": "Organization", name: site.association.name, url: site.association.url },
 };
 ---
 
@@ -47,7 +49,8 @@ const jsonLd = {
         <p class="body-text">
           Hoy me centro en el duelo migratorio, la pérdida y las transiciones vitales: esos cambios que nos
           obligan a preguntarnos quiénes somos y cuál es nuestro lugar. Soy también fundadora de la{" "}
-          <a href={site.association.url}>{site.association.name}</a>.
+          <a href={site.association.url}>{site.association.name}</a>, que lleva la Reconstrucción Humana a la
+          formación, la investigación y la cooperación con universidades, empresas e instituciones.
         </p>
         <p class="more">
           <a class="arrow-link" href="/mihistoria/">

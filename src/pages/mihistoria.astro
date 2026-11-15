@@ -35,7 +35,8 @@ const jsonLd = {
     url: Astro.site?.href,
     jobTitle: "Especialista en duelo migratorio y transiciones vitales",
     award: "Mujer Resiliente del Año 2025, Fundación Con Valores",
-    sameAs: [site.instagram.url, site.association.url],
+    sameAs: [site.instagram.url],
+    affiliation: { "@type": "Organization", name: site.association.name, url: site.association.url },
   },
 };
 ---
