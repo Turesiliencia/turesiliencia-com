@@ -1,6 +1,7 @@
-// Site-wide constants. The contact details and the book's links are the same
-// as on turesiliencia.org (src/content/site.ts and src/content/book.ts there):
-// change both sites together.
+// Site-wide constants. The email and the book's links are the same as on
+// turesiliencia.org (src/content/site.ts and src/content/book.ts there): change
+// both sites together. The Instagram is not: this is her personal account,
+// the .org links the association's.
 export const site = {
   name: "Deissy Olarte",
   title: "Deissy Olarte · TuResiliencia",
@@ -8,8 +9,8 @@ export const site = {
     "Deissy Olarte, teóloga, investigadora y conferencista en Reconstrucción Humana, autora de «Sobrevivir no es reconstruirse» y fundadora y presidenta de TuResiliencia. Conferencias, trayectoria, libro y blog.",
   email: "turesiliencia.com@gmail.com",
   instagram: {
-    handle: "@turesiliencia_",
-    url: "https://www.instagram.com/turesiliencia_",
+    handle: "@deissyolarte_",
+    url: "https://www.instagram.com/deissyolarte_",
   },
   association: {
     name: "Asociación TuResiliencia",
