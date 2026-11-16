@@ -8,9 +8,10 @@ import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import portrait from "../assets/deissy-olarte.jpg";
 import { book, site } from "../content/site";
+import { person } from "../lib/schema";
 
 const description =
-  "La trayectoria de Deissy Olarte, teóloga, investigadora y conferencista: su formación, su docencia, su libro, el premio «Mujer Resiliente del Año 2025» de la Fundación Con Valores y su historia.";
+  "La trayectoria de Deissy Olarte, teóloga, investigadora y conferencista: su formación, su docencia, su libro y el premio «Mujer Resiliente del Año 2025».";
 
 // Each title with where it was taken, as far as she has said.
 const education = [
@@ -33,15 +34,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
   url: new URL("/mihistoria/", Astro.site).href,
-  mainEntity: {
-    "@type": "Person",
-    name: "Deissy Olarte",
-    url: Astro.site?.href,
-    jobTitle: "Teóloga, investigadora y conferencista",
-    award: "Mujer Resiliente del Año 2025, Fundación Con Valores",
-    sameAs: [site.instagram.url],
-    affiliation: { "@type": "Organization", name: site.association.name, url: site.association.url },
-  },
+  mainEntity: person(Astro.site),
 };
 ---
 

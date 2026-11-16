@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig, fontProviders } from "astro/config";
 import sitemap from "@astrojs/sitemap";
+import { getPostDates } from "./src/lib/sanity.ts";
 
 // The address in canonical links, link-preview tags and the sitemap. On Vercel,
 // the project's shortest production domain: turesiliencia.com.
@@ -9,12 +10,24 @@ const site = productionHost
   ? `https://${productionHost}`
   : "https://turesiliencia.com";
 
+// When each post last changed, for the sitemap: search engines use it to
+// decide what to read again. Only posts: the other pages have no such date.
+const postDates = await getPostDates();
+
 // https://astro.build/config
 export default defineConfig({
   site,
   // Posts keep the addresses they had on WordPress, which end in a slash.
   trailingSlash: "always",
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      serialize(item) {
+        const slug = new URL(item.url).pathname.replaceAll("/", "");
+        const lastmod = postDates.get(slug);
+        return lastmod ? { ...item, lastmod } : item;
+      },
+    }),
+  ],
   // Downloaded at build time and served from the site itself. Fraunces for
   // display is hers (the .org's is Cormorant Garamond); Montserrat for text is
   // the logo's typeface, shared with the .org.

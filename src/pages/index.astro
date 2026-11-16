@@ -8,21 +8,14 @@ import { areas } from "../content/services";
 import { book, site } from "../content/site";
 import { talks } from "../content/talks";
 import { getPosts } from "../lib/sanity";
+import { bookData, person, website } from "../lib/schema";
 import cover from "../assets/sobrevivir-no-es-reconstruirse.jpg";
 
 const latest = (await getPosts()).slice(0, 3);
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Deissy Olarte",
-  url: Astro.site?.href,
-  jobTitle: "Teóloga, investigadora y conferencista",
-  knowsAbout: ["Reconstrucción Humana", "Duelo migratorio", "Transiciones vitales", "Resiliencia"],
-  email: `mailto:${site.email}`,
-  sameAs: [site.instagram.url],
-  // The association is her own organisation, not another profile of hers.
-  affiliation: { "@type": "Organization", name: site.association.name, url: site.association.url },
+  "@graph": [website(Astro.site), person(Astro.site), bookData(Astro.site)],
 };
 ---
 

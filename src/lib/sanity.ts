@@ -83,6 +83,14 @@ export async function getPosts(): Promise<PostSummary[]> {
   return posts.map(summarise);
 }
 
+// When each post last changed, by slug: the sitemap's lastmod.
+export async function getPostDates(): Promise<Map<string, string>> {
+  const posts = await client.fetch<{ slug: string; updatedAt: string }[]>(
+    `*[${validPost}] {"slug": slug.current, "updatedAt": _updatedAt}`,
+  );
+  return new Map(posts.map((p) => [p.slug, p.updatedAt]));
+}
+
 export async function getPost(slug: string): Promise<Post | null> {
   const post = await client.fetch<(RawSummary & Omit<Post, "excerpt">) | null>(
     `*[${validPost} && slug.current == $slug][0] {

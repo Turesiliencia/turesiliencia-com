@@ -4,9 +4,11 @@
 // the .org links the association's.
 export const site = {
   name: "Deissy Olarte",
-  title: "Deissy Olarte · TuResiliencia",
+  // The home page's title and the default description. Search results cut a
+  // description at about 155 characters: keep it under that.
+  title: "Deissy Olarte · Teóloga, investigadora y conferencista",
   description:
-    "Deissy Olarte, teóloga, investigadora y conferencista en Reconstrucción Humana, autora de «Sobrevivir no es reconstruirse» y fundadora y presidenta de TuResiliencia. Conferencias, trayectoria, libro y blog.",
+    "Deissy Olarte, teóloga, investigadora y conferencista en Reconstrucción Humana, autora de «Sobrevivir no es reconstruirse» y fundadora de TuResiliencia.",
   email: "turesiliencia.com@gmail.com",
   instagram: {
     handle: "@deissyolarte_",
@@ -25,6 +27,10 @@ export const book = {
   // Amazon store of their own.
   amazonUrl: "https://www.amazon.es/dp/B0HQ1SSMKB",
   otherStoreUrl: "https://www.amazon.com/dp/B0HQ1SSMKB",
+  // The paperback's details, as Amazon lists them, for search engines.
+  isbn: "9791399306217",
+  pages: 228,
+  published: "2026-10-30",
 };
 
 // Her sessions: what they cost and where they are paid. The prices are the

@@ -5,6 +5,7 @@ import PostCard from "../components/PostCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { renderBody } from "../lib/portable-text";
 import { formatDate, getPost, getPosts, imageAttrs, socialImageUrl } from "../lib/sanity";
+import { personRef } from "../lib/schema";
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -36,7 +37,7 @@ const jsonLd = {
   mainEntityOfPage: url,
   inLanguage: "es",
   ...(socialImage ? { image: socialImage } : {}),
-  author: { "@type": "Person", name: "Deissy Olarte", url: Astro.site?.href },
+  author: personRef(Astro.site),
 };
 ---
 

@@ -6,12 +6,13 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { complementary, formats, proposalHref, talks } from "../content/talks";
 import { site } from "../content/site";
+import { person } from "../lib/schema";
 
 // "derechos humanos, mujeres migrantes y desarrollo rural"
 const lines = new Intl.ListFormat("es").format(complementary.map((line) => line.toLowerCase()));
 
 const description =
-  "Conferencias, diálogos, mesas redondas y talleres de Deissy Olarte sobre Reconstrucción Humana, duelo migratorio y transiciones vitales, para congresos, universidades, empresas e instituciones.";
+  "Conferencias de Deissy Olarte sobre Reconstrucción Humana, duelo migratorio y transiciones vitales, para congresos, universidades, empresas e instituciones.";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -19,13 +20,7 @@ const jsonLd = {
   url: new URL("/conferencias/", Astro.site).href,
   name: "Conferencias",
   description,
-  about: {
-    "@type": "Person",
-    name: "Deissy Olarte",
-    url: Astro.site?.href,
-    jobTitle: "Teóloga, investigadora y conferencista",
-    affiliation: { "@type": "Organization", name: site.association.name, url: site.association.url },
-  },
+  about: person(Astro.site),
 };
 ---
 
